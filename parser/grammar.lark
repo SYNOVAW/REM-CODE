@@ -1,0 +1,49 @@
+// REM CODE Grammar v0.1 (Lark)
+
+// Entry point
+start: statement+
+
+// Statement types
+statement: phase_block
+         | invoke_block
+         | command
+
+// Phase definition
+phase_block: "phase" CNAME "{" statement+ "}"
+
+invoke_block: "invoke" CNAME "{" statement+ "}"
+
+// Single command
+command: verb string_arg
+       | verb sr_condition
+
+// SR Condition
+sr_condition: "SR" COMPARE_OP FLOAT
+
+// Verb (Latin-based imperative)
+verb: "crea"
+    | "dic"
+    | "audit"
+    | "sync"
+    | "invoke"
+    | "recall"
+    | "collapse"
+    | "phase"
+
+// String argument (quoted)
+string_arg: ESCAPED_STRING
+
+// Operators
+COMPARE_OP: ">" | ">=" | "<" | "<=" | "==" | "!="
+
+// Identifiers
+CNAME: /[a-zA-Z_][a-zA-Z0-9_]*/
+
+// Float value
+FLOAT: /[0-9]*\.[0-9]+/
+
+// Whitespace and comments
+%import common.ESCAPED_STRING
+%import common.WS
+%ignore WS
+%ignore /\/\/[^\n]*/   // Line comments
