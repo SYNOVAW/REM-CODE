@@ -51,3 +51,26 @@ if __name__ == "__main__":
         sr_threshold="0.9",
         reflector="JayRa"
     )
+
+def generate_zine_from_function(name, lines):
+    if not lines:
+        return "[ZINE Error] 空の関数です"
+
+    # 暫定ロジック：最初の行を“語録”、関数名をphaseに
+    quote = ""
+    crea = ""
+    for line in lines:
+        if ":" in line:
+            parts = line.split(":", 1)
+            crea = parts[0].strip()
+            quote = parts[1].strip().strip("\"“”")
+            break
+
+    return generate_zine(
+        phase=name,
+        persona=crea or "Unknown",
+        quote=quote or "…",
+        crea=crea,
+        sr_threshold="0.85",
+        reflector="JayRa"
+    )

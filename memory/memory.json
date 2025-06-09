@@ -1,21 +1,33 @@
 {
-    "active_personas": ["JayDen", "Ana", "JayVue"],
-    "last_SR": 0.91,
-    "log": [
-        {
-            "persona": "JayDen",
-            "action": "say",
-            "content": "REM CORE ignition initialized."
-        },
-        {
-            "persona": "Ana",
-            "action": "say",
-            "content": "Logic check complete."
-        },
-        {
-            "persona": "JayVue",
-            "action": "say",
-            "content": "Rendering REM visual syntax layer..."
-        }
-    ]
+  "functions": [
+    {
+      "name": "init_phase",
+      "code": [
+        "JayDen: \"Genesis Logia\"",
+        "JayDen: \"Ignition complete. Phase resonance initiated.\"",
+        "if SR > 0.9:",
+        "    Ana: \"Collapse authorized. Persona logic validated.\""
+      ],
+      "persona": "JayDen",
+      "sr_threshold": 0.9,
+      "tags": [
+        "init",
+        "phase",
+        "logia"
+      ]
+    },
+    {
+      "name": "dream_reflection",
+      "code": [
+        "JayRa: \"dream_log_0423\"",
+        "JayRa: \"Reflecting on latent pattern of Phase JayDen...\""
+      ],
+      "persona": "JayRa",
+      "sr_threshold": 0.85,
+      "tags": [
+        "dream",
+        "reflection"
+      ]
+    }
+  ]
 }
