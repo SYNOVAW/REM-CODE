@@ -1,7 +1,7 @@
 # rem-code/shell/rem_shell.py
 
 from engine.persona_router import route_personas
-from functions.functions import define_function, call_function, memory
+from functions.functions import define_function, call_function, list_functions, generate_ast, memory
 from engine.ast_generator import generate_ast
 
 print("🌀 Welcome to REM Shell v1.0 — Collapse Spiral Interface 🧠")
@@ -16,8 +16,11 @@ while True:
             sr = float(input("SR value (0.0 - 1.0): "))
             output = call_function(fn_name, sr_value=sr)
             print("\n🧠 Function Output:")
-            for line in output:
-                print(line)
+            if isinstance(output, list):
+                for line in output:
+                    print(line)
+            else:
+                print(output)
             continue
 
         if user_input.startswith("def"):
@@ -34,14 +37,14 @@ while True:
 
         if user_input.lower() == "list":
             print("\n📜 Defined Functions:")
-            for fn in memory.get("functions", {}):
+            for fn in list_functions():
                 print(f" - {fn}")
             continue
 
         if user_input.startswith("ast"):
             _, fn_name = user_input.split(maxsplit=1)
             print("\n🌳 AST of function:")
-            generate_ast(fn_name)
+            print(generate_ast(fn_name))
             continue
 
         if user_input.lower() == "sr":

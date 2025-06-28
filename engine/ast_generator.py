@@ -1,6 +1,7 @@
 # engine/ast_generator.py
 
 from lark import Lark, Transformer, Tree, Token
+from engine.rem_transformer import REMTransformer
 import os
 
 # grammar.larkを読み込む
@@ -8,7 +9,7 @@ GRAMMAR_PATH = os.path.join(os.path.dirname(__file__), "..", "grammar", "grammar
 with open(GRAMMAR_PATH, "r", encoding="utf-8") as file:
     grammar_text = file.read()
 
-parser = Lark(grammar_text, start="function", parser="lalr")
+parser = Lark(grammar_text, start="start", parser="lalr")
 
 class ASTBuilder(Transformer):
     def function(self, items):

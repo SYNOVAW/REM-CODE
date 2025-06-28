@@ -1,33 +1,28 @@
 {
-  "functions": [
-    {
-      "name": "init_phase",
-      "code": [
-        "JayDen: \"Genesis Logia\"",
-        "JayDen: \"Ignition complete. Phase resonance initiated.\"",
-        "if SR > 0.9:",
-        "    Ana: \"Collapse authorized. Persona logic validated.\""
-      ],
-      "persona": "JayDen",
-      "sr_threshold": 0.9,
-      "tags": [
-        "init",
-        "phase",
-        "logia"
+  "functions": {
+    "test_basic": {
+      "body": [
+        "Phase Start:",
+        "Acta \"Hello\"",
+        "Causa \"This is a REM test\""
       ]
     },
-    {
-      "name": "dream_reflection",
-      "code": [
-        "JayRa: \"dream_log_0423\"",
-        "JayRa: \"Reflecting on latent pattern of Phase JayDen...\""
-      ],
-      "persona": "JayRa",
-      "sr_threshold": 0.85,
-      "tags": [
-        "dream",
-        "reflection"
+    "basic_test": {
+      "body": [
+        "Phase Start:",
+        "Acta \"Hello\"",
+        "Causa \"This is a REM test\""
+      ]
+    },
+    "test": {
+      "body": [
+        "def greet():",
+        "  Acta \"Greetings Commander\"",
+        "  Causa \"REM CODE Ready\"",
+        "",
+        "Invoke greet:",
+        "  Acta \"Invocation Done\""
       ]
     }
-  ]
+  }
 }

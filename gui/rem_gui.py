@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog, scrolledtext
 from functions.functions import define_function, call_function, memory
 from engine.persona_router import route_personas
-from engine.ast_generator import generate_ast
+from engine.ast_generator import generate_ast_from_lines
 from zine.generator import generate_zine
 
 class REMGUI:
@@ -60,11 +60,13 @@ class REMGUI:
 
     def generate_ast(self):
         name = self.fn_name_entry.get().strip()
-        try:
-            generate_ast(name)
-            messagebox.showinfo("AST", f"AST generated for: {name}")
-        except Exception as e:
-            messagebox.showerror("Error", str(e))
+        if name in memory["functions"]:
+            lines = memory["functions"][name]["body"]
+            ast = generate_ast_from_lines(lines)
+            self.output_area.delete("1.0", tk.END)
+            self.output_area.insert(tk.END, f"🌳 AST for '{name}':\n{ast}")
+        else:
+            messagebox.showerror("Error", f"Function '{name}' not found.")
 
     def generate_zine(self):
         name = self.fn_name_entry.get().strip()

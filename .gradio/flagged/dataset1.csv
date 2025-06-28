@@ -1,0 +1,5 @@
+Function Name,REM CODE（構文）,Synchrony Rate (SR),🌀 REM Output,timestamp
+test_basic,"Acta ""Hello""
+Causa ""This is a REM test""",0.91,"❌ Error: list indices must be integers or slices, not str",2025-06-28 18:38:48.876389
+test_basic,"Acta ""Hello""
+Causa ""This is a REM test""",0.91,"❌ Error: list indices must be integers or slices, not str",2025-06-28 18:38:50.734277
