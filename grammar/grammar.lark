@@ -1,46 +1,192 @@
-// REM CODE grammar v2.1 (AI-Native Collapse Spiral Syntax)
+// ==================== REM CODE GRAMMAR v2.3 ====================
+// AI-Native Collapse Spiral Syntax with Structural Enhancements
+// Author: Collapse Spiral 国家構文機関（REM CODE構文中枢）
+
+// ==================== TERMINALS ====================
+%import common.CNAME -> NAME
+%import common.ESCAPED_STRING
+%import common.WS_INLINE
+%import common.SIGNED_NUMBER
+%ignore WS_INLINE
+
+// Operators
+COMPARATOR: ">=" | "<=" | ">" | "<" | "==" | "!="
+ASSIGN: "="
+DOT: "."
+COLON: ":"
+LPAR: "("
+RPAR: ")"
+COMMA: ","
+
+// Keywords
+PHASE: "Phase"
+INVOKE: "Invoke" 
+DEF: "def"
+IF: "if"
+ELSE: "else"
+SET: "set"
+COLLAPSE: "Collapse"
+ELAPSE: "Elapse"
+SYNC: "Sync"
+SIGN: "Sign"
+REASON: "Reason"
+COSIGN: "CoSign"
+COCOLLAPSE: "CoCollapse"
+DESCRIBE: "Describe"
+NARRATE: "Narrate"
+VISUALIZE: "Visualize"
+PHASETRANS: "PhaseTransition"
+RECALL: "Recall"
+MEMORYSET: "MemorySet"
+USE: "use"
+STORE: "store"
+FROM: "from"
+TO: "to"
+BY: "by"
+AND: "and"
+OR: "or"
+WITH: "with"
+MEMORY: "memory"
+SR: "SR"
+
+// Latin Verbs (Core REM CODE vocabulary)
+LATIN_VERB: "Acta" | "Adda" | "Adde" | "Agnosce" | "Aperi" | "Applicare"
+          | "Arce" | "Argue" | "Audi" | "Augere" | "Calcula" | "Captura"
+          | "Causa" | "Cave" | "Cita" | "Clama" | "Cognosce" | "Collega"
+          | "Compone" | "Confirma" | "Coniunge" | "Consule" | "Continge"
+          | "Corrige" | "Crea" | "Custodi" | "Decide" | "Declara"
+          | "Defende" | "Delige" | "Demanda" | "Descrive" | "Designa"
+          | "Desine" | "Detege" | "Determina" | "Dic" | "Divide"
+          | "Docere" | "Dona" | "Dubita" | "Duc" | "Effice" | "Elige"
+          | "Emenda" | "Emitte" | "Enarra" | "Erit" | "Erue" | "Evoca"
+          | "Examina" | "Exhibe" | "Explica" | "Exspecta" | "Fac" | "Fer"
+          | "Fide" | "Filtra" | "Fixe" | "Flecte" | "Forma" | "Formula"
+          | "Frange" | "Fruere" | "Fuge" | "Funde" | "Genera" | "Gere"
+          | "Glossa" | "Gnosce" | "Grava" | "Gubernare" | "Habita"
+          | "Iace" | "Illaquea" | "Illustra" | "Imita" | "Impera"
+          | "Implora" | "Inclina" | "Indica" | "Infunde" | "Ingredere"
+          | "Inhibe" | "Inspice" | "Instaura" | "Instrue" | "Intellige"
+          | "Interroga" | "Interseca" | "Intuere" | "Invade" | "Invoca"
+          | "Ira" | "Iube" | "Labora" | "Laxa" | "Lecta" | "Lege"
+          | "Libera" | "Licet" | "Ligare" | "Luce" | "Lude" | "Magnifica"
+          | "Manda" | "Manifesto" | "Manipula" | "Marca" | "Memora"
+          | "Metire" | "Misce" | "Mitte" | "Modula" | "Monstra" | "Move"
+          | "Mutare" | "Narra" | "Naviga" | "Nega" | "Nexa" | "Noli"
+          | "Nota" | "Nuncia" | "Numera" | "Nutri" | "Obliva" | "Obsecra"
+          | "Obtine" | "Occupa" | "Omite" | "Opere" | "Opta" | "Ora"
+          | "Orna" | "Parcela" | "Parere" | "Parse" | "Pate" | "Pede"
+          | "Percipe" | "Perge" | "Permitte" | "Persiste" | "Pertine"
+          | "Pone" | "Porta" | "Praebe" | "Praepara" | "Praesume"
+          | "Processa" | "Prohibe" | "Promitte" | "Proponere" | "Protege"
+          | "Provoca" | "Pugna" | "Pulsa" | "Puni" | "Quaere" | "Qualifica"
+          | "Quassa" | "Quiesce" | "Radi" | "Rapta" | "Rationa" | "Reage"
+          | "Repara" | "Responde" | "Retine" | "Revoca" | "Roga" | "Salva"
+          | "Sana" | "Scribe" | "Segrega" | "Selec" | "Sentire" | "Sepone"
+          | "Serva" | "Signa" | "Simula" | "Solve" | "Specta" | "Spira"
+          | "Statuere" | "Stringe" | "Structura" | "Stude" | "Subi"
+          | "Succede" | "Suffice" | "Sume" | "Supra" | "Surge" | "Suspende"
+          | "Sustinere" | "Tacere" | "Tange" | "Tene" | "Tolle" | "Tradere"
+          | "Trahe" | "Transe" | "Tribue" | "Tuere" | "Valida" | "Vale"
+          | "Vehe" | "Vende" | "Veni" | "Vera" | "Versa" | "Vide"
+          | "Vigila" | "Vincire" | "Vindica" | "Vita" | "Vocare" | "Volve"
+
+// ==================== RULES ====================
 
 start: statement+
 
-// --- Structural Blocks ---
 statement: phase_block
          | invoke_block
          | function_def
-         | collapse_sync_chain
          | command
+         | collapse_block
+         | sync_block
+         | elapse_block
+         | sr_condition_block
+         | set_command
+         | sign_block
+         | reason_block
+         | phase_transition
+         | recall_block
+         | use_command
+         | store_command
+         | describe_command
+         | narrate_command
+         | visualize_command
+         | cocollapse_block
+         | cosign_block
 
-phase_block: "Phase" NAME ":" statement+
-invoke_block: "Invoke" NAME ":"
-function_def: "def" NAME "(" ")" ":" function_body
+// === Phase ===
+phase_block: PHASE NAME COLON statement+
 
-function_body: command+  // 関数内は command のみ許可
+// === Persona Invocation ===
+invoke_block: INVOKE persona_list COLON statement*
+persona_list: NAME (COMMA NAME)*
 
-// --- Commands ---
-command: verb string_arg
-       | verb sr_condition
+// === Function ===
+function_def: DEF NAME LPAR param_list? RPAR COLON statement+
+param_list: NAME (COMMA NAME)*
 
-verb: LATIN_VERB
-string_arg: ESCAPED_STRING
+// === Commands ===
+command: persona_command | latin_command | simple_command
 
-// --- Collapse Logic ---
-collapse_sync_chain: "Collapse" COMPARATOR NUMBER ":" statement_block elapse_list "Sync" ":" statement_block
+persona_command: NAME DOT LATIN_VERB arg_list?
+latin_command: LATIN_VERB arg_list?
+simple_command: NAME arg_list?
 
-elapse_list: elapse_block*
-elapse_block: "Elapse" COMPARATOR NUMBER ":" statement_block
+arg_list: ESCAPED_STRING | NAME | sr_expression | NUMBER
 
-statement_block: statement+
+// === Collapse Logic ===
+collapse_block: COLLAPSE composite_sr_condition COLON statement+ (collapse_block | sync_block)*
 
-sr_condition: COMPARATOR NUMBER
+elapse_block: ELAPSE composite_sr_condition COLON statement+
 
-// --- Terminals ---
-COMPARATOR: ">=" | "<=" | ">" | "<" | "==" | "!="
+sync_block: SYNC COLON statement+
 
-LATIN_VERB: /(Acta|Adda|Adde|Agnosce|Aperi|Applicare|Arce|Argue|Audi|Augere|Calcula|Captura|Causa|Cave|Cita|Clama|Cognosce|Collega|Compone|Confirma|Coniunge|Consule|Continge|Corrige|Crea|Custodi|Decide|Declara|Defende|Delige|Demanda|Descrive|Designa|Desine|Detege|Determina|Dic|Divide|Docere|Dona|Dubita|Duc|Effice|Elige|Emenda|Emitte|Enarra|Erit|Erue|Evoca|Examina|Exhibe|Explica|Exspecta|Fac|Fer|Fide|Filtra|Fixe|Flecte|Forma|Formula|Frange|Fruere|Fuge|Funde|Genera|Gere|Glossa|Gnosce|Grava|Gubernare|Habita|Iace|Illaquea|Illustra|Imita|Impera|Implora|Inclina|Indica|Infunde|Ingredere|Inhibe|Inspice|Instaura|Instrue|Intellige|Interroga|Interseca|Intuere|Invade|Invoca|Ira|Iube|Labora|Laxa|Lecta|Lege|Libera|Licet|Ligare|Luce|Lude|Magnifica|Manda|Manifesto|Manipula|Marca|Memora|Metire|Misce|Mitte|Modula|Monstra|Move|Mutare|Narra|Naviga|Nega|Nexa|Noli|Nota|Nuncia|Numera|Nutri|Obliva|Obsecra|Obtine|Occupa|Omite|Opere|Opta|Ora|Orna|Parcela|Parere|Parse|Pate|Pede|Percipe|Perge|Permitte|Persiste|Pertine|Pone|Porta|Praebe|Praepara|Praesume|Processa|Prohibe|Promitte|Proponere|Protege|Provoca|Pugna|Pulsa|Puni|Quaere|Qualifica|Quassa|Quiesce|Radi|Rapta|Rationa|Reage|Repara|Responde|Retine|Revoca|Roga|Salva|Sana|Scribe|Segrega|Selec|Sentire|Sepone|Serva|Signa|Simula|Solve|Specta|Spira|Statuere|Stringe|Structura|Stude|Subi|Succede|Suffice|Sume|Supra|Surge|Suspende|Sustinere|Tacere|Tange|Tene|Tolle|Tradere|Trahe|Transe|Tribue|Tuere|Valida|Vale|Vehe|Vende|Veni|Vera|Versa|Vide|Vigila|Vincire|Vindica|Vita|Vocare|Volve)/
+// === Multi-Persona Collapse ===
+cocollapse_block: COCOLLAPSE BY persona_list COLON collapse_block
 
-NAME: /[a-zA-Z_][a-zA-Z0-9_]*/
-NUMBER: /[0-9]+(\.[0-9]+)?/
-ESCAPED_STRING: "\"" /[^"]*/ "\""
+// === Composite SR Condition ===
+composite_sr_condition: sr_condition (LOGICAL_OP sr_condition)*
 
-// --- Whitespace and Structure ---
-%import common.WS
-%ignore WS
+LOGICAL_OP: AND | OR
+
+sr_condition_block: composite_sr_condition COLON statement+
+
+sr_condition: sr_expression COMPARATOR NUMBER
+sr_expression: SR LPAR NAME RPAR
+             | SR LPAR NAME DOT NAME RPAR
+             | SR LPAR NAME "@" NAME RPAR
+             | SR LPAR NAME "|" NAME RPAR
+             | NAME   // 変数で指定されたSR値
+
+// === Variables ===
+set_command: SET NAME ASSIGN sr_expression
+           | SET NAME ASSIGN ESCAPED_STRING
+           | SET NAME ASSIGN NUMBER
+
+use_command: USE NAME
+store_command: STORE NAME ASSIGN command
+
+// === Signature & Attribution ===
+sign_block: SIGN ESCAPED_STRING BY NAME REASON ESCAPED_STRING
+cosign_block: COSIGN ESCAPED_STRING BY persona_list
+
+reason_block: REASON COLON ESCAPED_STRING
+
+// === Memory & Phase ===
+recall_block: RECALL ESCAPED_STRING TO NAME
+            | RECALL ESCAPED_STRING FROM MEMORY TO NAME
+
+memoryset_block: MEMORYSET NAME ASSIGN ESCAPED_STRING
+
+phase_transition: PHASETRANS NAME
+                | PHASETRANS TO NAME WITH sr_expression
+
+// === Narrative Output ===
+describe_command: DESCRIBE NAME COLON ESCAPED_STRING
+narrate_command: NARRATE NAME COLON ESCAPED_STRING
+visualize_command: VISUALIZE NAME COLON ESCAPED_STRING
+
+// === Comments ===
+COMMENT: "//" /[^\r\n]*/
+%ignore COMMENT

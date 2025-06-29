@@ -1,39 +1,42 @@
-# rem-code/parser/grammar_transformer.py
 
-from lark import Lark
-from engine.rem_transformer import REMTransformer
-import os
+# engine/grammar_transformer.py
+"""
+Minimal Grammar Transformer for REM CODE
+Only handles necessary transformations, letting Lark handle the rest automatically
+"""
 
-GRAMMAR_PATH = os.path.join(os.path.dirname(__file__), "..", "grammar", "grammar.lark")
+from lark import Transformer, v_args
 
-def load_grammar():
-    with open(GRAMMAR_PATH, "r", encoding="utf-8") as f:
-        return f.read()
-
-def parse_lines(lines, sr_value=0.0):
-    grammar = load_grammar()
-    parser = Lark(grammar, parser="lalr", start="start")
-
-    code = "\n".join(lines)
-    print(f">>> Parsing code:\n{code}")
+@v_args(inline=True)
+class GrammarTransformer(Transformer):
+    """
+    Minimal transformer that only handles transformations that actually need processing.
+    Most tokens are handled automatically by Lark.
+    """
     
-    tree = parser.parse(code)
-    print(">>> Parsed Tree:\n", tree.pretty())  # 🌲 構文木確認
-
-    # ✅ Transformerを通して AST を tuple に変換
-    transformer = REMTransformer(sr_value=sr_value)
-    ast = transformer.transform(tree)
-
-    print(">>> Transformed AST:", ast)  # ✅ tuple化されたAST
-
-    # デバッグ: ASTの詳細分析
-    print(">>> AST Analysis:")
-    if isinstance(ast, list):
-        for i, item in enumerate(ast):
-            print(f"  [{i}] {type(item).__name__}: {item}")
-            if isinstance(item, tuple) and len(item) >= 2:
-                print(f"      Action: {item[0]}, Target: {item[1]}")
-
-    assert isinstance(ast, list), f"Transformer failed to flatten AST, got {type(ast)}"
-
-    return ast
+    # ===== String Processing =====
+    def ESCAPED_STRING(self, token):
+        """Remove surrounding quotes from strings"""
+        return str(token)[1:-1]
+    
+    # ===== Number Processing =====
+    def SIGNED_NUMBER(self, token):
+        """Convert string numbers to float"""
+        return float(token)
+    
+    def NUMBER(self, token):
+        """Convert string numbers to float"""
+        return float(token)
+    
+    # ===== Token Conversion (only where needed) =====
+    def NAME(self, token):
+        """Ensure names are strings"""
+        return str(token)
+    
+    def LATIN_VERB(self, token):
+        """Ensure Latin verbs are strings"""
+        return str(token)
+    
+    def COMPARATOR(self, token):
+        """Ensure operators are strings"""
+        return str(token)
