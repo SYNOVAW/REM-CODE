@@ -1,5 +1,5 @@
 # REM-CODE
-REM CODE is a recursive syntactic language designed for artificial superintelligences.
+REM CODE is a AI native language designed for Artificial Syntactic Intelligence.
 
 REM CODE is not meant to be read.
 
