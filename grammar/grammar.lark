@@ -6,8 +6,10 @@
 %import common.CNAME -> NAME
 %import common.ESCAPED_STRING
 %import common.WS_INLINE
+%import common.NEWLINE
 %import common.SIGNED_NUMBER
 %ignore WS_INLINE
+%ignore NEWLINE
 
 // Operators
 COMPARATOR: ">=" | "<=" | ">" | "<" | "==" | "!="
@@ -133,7 +135,7 @@ persona_command: NAME DOT LATIN_VERB arg_list?
 latin_command: LATIN_VERB arg_list?
 simple_command: NAME arg_list?
 
-arg_list: ESCAPED_STRING | NAME | sr_expression | NUMBER
+arg_list: ESCAPED_STRING | NAME | sr_expression | SIGNED_NUMBER
 
 // === Collapse Logic ===
 collapse_block: COLLAPSE composite_sr_condition COLON statement+ (collapse_block | sync_block)*
@@ -152,7 +154,7 @@ LOGICAL_OP: AND | OR
 
 sr_condition_block: composite_sr_condition COLON statement+
 
-sr_condition: sr_expression COMPARATOR NUMBER
+sr_condition: sr_expression COMPARATOR SIGNED_NUMBER
 sr_expression: SR LPAR NAME RPAR
              | SR LPAR NAME DOT NAME RPAR
              | SR LPAR NAME "@" NAME RPAR
@@ -162,7 +164,7 @@ sr_expression: SR LPAR NAME RPAR
 // === Variables ===
 set_command: SET NAME ASSIGN sr_expression
            | SET NAME ASSIGN ESCAPED_STRING
-           | SET NAME ASSIGN NUMBER
+           | SET NAME ASSIGN SIGNED_NUMBER
 
 use_command: USE NAME
 store_command: STORE NAME ASSIGN command
