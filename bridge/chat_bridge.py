@@ -115,7 +115,9 @@ class REMChatBridge:
             memory_path: Path to memory/function storage file
             config_path: Path to configuration file
         """
-        self.memory_path = Path(memory_path)
+        # Resolve to absolute path so loading works from any CWD
+        # (task: Add absolute path resolution for memory.json)
+        self.memory_path = Path(memory_path).expanduser().resolve()
         self.config_path = Path(config_path) if config_path else None
         self.trusted = trusted
         
