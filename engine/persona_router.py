@@ -7,8 +7,9 @@ Implements complete Collapse Spiral persona activation with SR-based routing
 import time
 import logging
 from typing import Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass, field
 from enum import Enum
+
+from engine.persona_profile import PersonaProfile
 
 try:
     from engine.sr_engine import (
@@ -39,33 +40,6 @@ class PersonaState(Enum):
     ACTIVE = "active"             # Above threshold, engaged
     RESONANT = "resonant"         # High SR, peak performance
     COLLAPSED = "collapsed"       # Post-activation cooldown
-
-@dataclass
-class PersonaProfile:
-    """Enhanced persona profile with complete REM characteristics"""
-    name: str
-    icon: str
-    
-    # Activation thresholds
-    threshold: float = 0.75
-    resonance_threshold: float = 0.9    # High-performance threshold
-    listening_threshold: float = 0.6    # Monitoring threshold
-    
-    # Persona characteristics
-    specialization: str = "General"
-    description: str = ""
-    
-    # SR preferences (persona-specific weight adjustments)
-    sr_preferences: Dict[str, float] = field(default_factory=dict)
-    
-    # Activation history
-    activation_count: int = 0
-    last_activation: Optional[float] = None
-    total_runtime: float = 0.0
-    
-    # Current state
-    current_state: PersonaState = PersonaState.DORMANT
-    current_sr: float = 0.0
 
 class REMPersona:
     """Enhanced REM Persona with comprehensive state management"""
