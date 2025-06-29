@@ -138,8 +138,8 @@ class REMFunctionManager:
     
     def _get_default_memory_path(self) -> str:
         """Get default memory file path"""
-        base_dir = Path(__file__).parent.parent
-        memory_dir = base_dir / "memory"
+        base_dir = Path(__file__).resolve().parent.parent
+        memory_dir = (base_dir / "memory").resolve()
         memory_dir.mkdir(exist_ok=True)
         return str(memory_dir / "functions.json")
     

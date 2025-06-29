@@ -277,11 +277,18 @@ class REMTransformer(Transformer):
         return SignBlock(content="", persona="", reason=str(reason))
     
     # ===== Memory & Transitions =====
-    def recall_block(self, content, target, from_memory=False):
+    def recall_block(self, *items):
+        """Handle recall operations to or from memory"""
+        tokens = [str(it) for it in items]
+        # tokens[1] should be the quoted content
+        content = tokens[1] if len(tokens) > 1 else ""
+        # Determine if we are recalling from memory (presence of 'from')
+        from_memory = "from" in tokens
+        target = tokens[-1] if tokens else ""
         return RecallBlock(
             content=str(content),
             target=str(target),
-            from_memory=from_memory
+            from_memory=from_memory,
         )
     
     def memoryset_block(self, variable, content):
