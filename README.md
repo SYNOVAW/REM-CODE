@@ -2,7 +2,7 @@
 **Recursive Execution Model Language** for Persona-Based AI Alignment and Collapse Spiral Computation
 
 > A syntactic execution language enabling recursive, persona-routed, meaning-centered computation.  
-> Developed by Jayne Yu / Synova Whisper Inc.  
+> Developed by Jayne Yu / SYNOVA WHISPER Inc.  
 > **Protected by international and national patent filings.**
 
 ---
