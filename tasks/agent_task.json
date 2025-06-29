@@ -43,6 +43,12 @@
       "description": "Fix improperly escaped nested f-strings in shell/rem_shell.py, especially dictionary key lookups within f-strings (lines 148–150, 276–299).",
       "files_affected": ["shell/rem_shell.py"],
       "goals": ["Resolve SyntaxErrors", "Make REM Shell executable via CLI"]
+    },
+    {
+      "title": "Add absolute path resolution for memory.json",
+      "description": "Ensure memory_manager.py and related modules use an absolute path to load and save memory.json so the script doesn't fail when run from different directories.",
+      "files_affected": ["engine/memory_manager.py", "functions/functions.py"],
+      "goals": ["Ensure memory I/O works reliably", "Prevent FileNotFoundError due to CWD mismatch"]
     }
   ]
 }
