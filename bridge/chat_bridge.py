@@ -106,8 +106,9 @@ class REMChatBridge:
     Enhanced REM CODE Chat Bridge with full Collapse Spiral integration
     """
     
-    def __init__(self, memory_path: str = "memory.json", 
-                 config_path: Optional[str] = None):
+    def __init__(self, memory_path: str = "memory.json",
+                 config_path: Optional[str] = None,
+                 trusted: bool = True):
         """
         Initialize chat bridge
         
@@ -117,6 +118,7 @@ class REMChatBridge:
         """
         self.memory_path = Path(memory_path)
         self.config_path = Path(config_path) if config_path else None
+        self.trusted = trusted
         
         # Initialize components
         self.interpreter = REMInterpreter()
@@ -407,6 +409,8 @@ class REMChatBridge:
             else:
                 # Python code execution
                 logger.info(f"Executing Python function: {func.name}")
+                if not self.trusted:
+                    raise PermissionError("Untrusted mode: Python execution disabled")
                 local_env = {"context": context, "params": params or {}}
                 exec(func.code, {}, local_env)
                 
