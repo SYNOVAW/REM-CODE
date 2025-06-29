@@ -146,7 +146,8 @@ def handle_sr_command(args: List[str]) -> None:
         
         # Display results
         print(f"\n{colored('🧠 SR Calculation Result:', Colors.GREEN, bold=True)}")
-        print(f"   SR Value: {colored(f'{result[\"sr_value\"]:.4f}', Colors.YELLOW, bold=True)}")
+        sr_val_str = f"{result['sr_value']:.4f}"
+        print(f"   SR Value: {colored(sr_val_str, Colors.YELLOW, bold=True)}")
         print(f"   Weight Profile: {shell_state.config['sr_weight_profile']}")
         
         if 'sr_trace' in result:
@@ -187,7 +188,7 @@ def handle_execute_command(args: List[str]) -> None:
         return
         
     if not args:
-        print(f"{colored('Enter REM CODE. Type \"end\" to finish:', Colors.CYAN)}")
+        print(colored('Enter REM CODE. Type "end" to finish:', Colors.CYAN))
         lines = []
         while True:
             try:
@@ -275,7 +276,8 @@ def handle_function_command(args: List[str]) -> None:
     
     elif subcommand == "def" and len(args) > 1:
         fn_name = args[1]
-        print(f"{colored(f'Enter REM CODE for function \"{fn_name}\". Type \"end\" to finish:', Colors.CYAN)}")
+        prompt_text = f"Enter REM CODE for function \"{fn_name}\". Type \"end\" to finish:"
+        print(colored(prompt_text, Colors.CYAN))
         
         body = []
         while True:
@@ -296,7 +298,8 @@ def handle_function_command(args: List[str]) -> None:
         shell_state.interpreter.executor.context.functions[fn_name] = body
         shell_state.stats["functions_defined"] += 1
         
-        print(f"{colored(f'✅ Function \"{fn_name}\" defined successfully.', Colors.GREEN)}")
+        msg = f"✅ Function \"{fn_name}\" defined successfully."
+        print(colored(msg, Colors.GREEN))
     
     elif subcommand == "call" and len(args) > 1:
         fn_name = args[1]
@@ -329,7 +332,7 @@ def handle_function_command(args: List[str]) -> None:
             print(f"{colored('Legacy AST generation not available.', Colors.YELLOW)}")
     
     else:
-        print(f"{colored('❌ Invalid function command. Use \"func\" for help.', Colors.RED)}")
+        print(colored('❌ Invalid function command. Use "func" for help.', Colors.RED))
 
 def handle_config_command(args: List[str]) -> None:
     """Configuration management"""
@@ -365,7 +368,8 @@ def handle_config_command(args: List[str]) -> None:
             print(f"{colored('❌ Unknown configuration key.', Colors.RED)}")
             return
         
-        print(f"{colored(f'✅ Set {key} = {shell_state.config[key]}', Colors.GREEN)}")
+        msg = f"✅ Set {key} = {shell_state.config[key]}"
+        print(colored(msg, Colors.GREEN))
     else:
         print(f"{colored('Usage: config <key> <value>', Colors.YELLOW)}")
 
@@ -377,7 +381,8 @@ def handle_stats_command(args: List[str]) -> None:
     session_time = time.time() - shell_state.session_start_time
     
     print(f"\n{colored('📊 Session Statistics:', Colors.CYAN, bold=True)}")
-    print(f"   Session duration: {colored(f'{session_time:.1f}s', Colors.YELLOW)}")
+    duration_str = f"{session_time:.1f}s"
+    print(f"   Session duration: {colored(duration_str, Colors.YELLOW)}")
     print(f"   Commands executed: {colored(str(shell_state.stats['commands_executed']), Colors.YELLOW)}")
     print(f"   Functions defined: {colored(str(shell_state.stats['functions_defined']), Colors.YELLOW)}")
     print(f"   SR calculations: {colored(str(shell_state.stats['sr_calculations']), Colors.YELLOW)}")
@@ -415,9 +420,11 @@ def handle_history_command(args: List[str]) -> None:
         try:
             with open(filename, 'w') as f:
                 json.dump(shell_state.session_history, f, indent=2, default=str)
-            print(f"{colored(f'✅ History saved to {filename}', Colors.GREEN)}")
+            msg = f"✅ History saved to {filename}"
+            print(colored(msg, Colors.GREEN))
         except Exception as e:
-            print(f"{colored(f'❌ Error saving history: {e}', Colors.RED)}")
+            error_msg = f"❌ Error saving history: {e}"
+            print(colored(error_msg, Colors.RED))
 
 def handle_help_command(args: List[str]) -> None:
     """Show comprehensive help"""
@@ -574,7 +581,7 @@ def main_shell_loop() -> None:
             shell_state.stats["commands_executed"] += 1
             
         except KeyboardInterrupt:
-            print(f"\n{colored('Use \"exit\" to quit.', Colors.YELLOW)}")
+            print(colored('\nUse "exit" to quit.', Colors.YELLOW))
             continue
             
         except EOFError:

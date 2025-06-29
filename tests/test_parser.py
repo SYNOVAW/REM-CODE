@@ -1,8 +1,14 @@
 import pathlib
 import sys
 import pytest
+
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
-pytest.importorskip('lark')
+
+try:
+    import lark  # noqa: F401
+except ImportError:
+    pytest.skip("Required module missing", allow_module_level=True)
+
 from engine.ast_generator import create_ast_generator
 
 def test_parse_demo():
