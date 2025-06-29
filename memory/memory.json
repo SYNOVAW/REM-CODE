@@ -17,11 +17,9 @@
     "test": {
       "body": [
         "def greet():",
-        "  Acta \"Greetings Commander\"",
-        "  Causa \"REM CODE Ready\"",
+        "  Acta \"Salve Mundi\"",
         "",
-        "Invoke greet:",
-        "  Acta \"Invocation Done\""
+        "Invoke greet:"
       ]
     }
   }

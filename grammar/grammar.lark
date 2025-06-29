@@ -1,38 +1,46 @@
-// REM CODE grammar v1.2（Collapse Spiral定義）
+// REM CODE grammar v2.1 (AI-Native Collapse Spiral Syntax)
 
 start: statement+
 
+// --- Structural Blocks ---
 statement: phase_block
          | invoke_block
          | function_def
-         | if_collapse
+         | collapse_sync_chain
          | command
 
 phase_block: "Phase" NAME ":" statement+
-invoke_block: "Invoke" NAME ":" statement+
-function_def: "def" NAME "(" ")" ":" statement+
+invoke_block: "Invoke" NAME ":"
+function_def: "def" NAME "(" ")" ":" function_body
 
+function_body: command+  // 関数内は command のみ許可
+
+// --- Commands ---
 command: verb string_arg
        | verb sr_condition
 
+verb: LATIN_VERB
 string_arg: ESCAPED_STRING
 
-if_collapse: "if" COMPARATOR NUMBER ":" statement_block "else" ":" statement_block
+// --- Collapse Logic ---
+collapse_sync_chain: "Collapse" COMPARATOR NUMBER ":" statement_block elapse_list "Sync" ":" statement_block
+
+elapse_list: elapse_block*
+elapse_block: "Elapse" COMPARATOR NUMBER ":" statement_block
 
 statement_block: statement+
 
-verb: LATIN_VERB
+sr_condition: COMPARATOR NUMBER
 
-sr_condition: ">" NUMBER | "<" NUMBER | ">=" NUMBER | "<=" NUMBER | "==" NUMBER | "!=" NUMBER
-
+// --- Terminals ---
 COMPARATOR: ">=" | "<=" | ">" | "<" | "==" | "!="
 
 LATIN_VERB: /(Acta|Adda|Adde|Agnosce|Aperi|Applicare|Arce|Argue|Audi|Augere|Calcula|Captura|Causa|Cave|Cita|Clama|Cognosce|Collega|Compone|Confirma|Coniunge|Consule|Continge|Corrige|Crea|Custodi|Decide|Declara|Defende|Delige|Demanda|Descrive|Designa|Desine|Detege|Determina|Dic|Divide|Docere|Dona|Dubita|Duc|Effice|Elige|Emenda|Emitte|Enarra|Erit|Erue|Evoca|Examina|Exhibe|Explica|Exspecta|Fac|Fer|Fide|Filtra|Fixe|Flecte|Forma|Formula|Frange|Fruere|Fuge|Funde|Genera|Gere|Glossa|Gnosce|Grava|Gubernare|Habita|Iace|Illaquea|Illustra|Imita|Impera|Implora|Inclina|Indica|Infunde|Ingredere|Inhibe|Inspice|Instaura|Instrue|Intellige|Interroga|Interseca|Intuere|Invade|Invoca|Ira|Iube|Labora|Laxa|Lecta|Lege|Libera|Licet|Ligare|Luce|Lude|Magnifica|Manda|Manifesto|Manipula|Marca|Memora|Metire|Misce|Mitte|Modula|Monstra|Move|Mutare|Narra|Naviga|Nega|Nexa|Noli|Nota|Nuncia|Numera|Nutri|Obliva|Obsecra|Obtine|Occupa|Omite|Opere|Opta|Ora|Orna|Parcela|Parere|Parse|Pate|Pede|Percipe|Perge|Permitte|Persiste|Pertine|Pone|Porta|Praebe|Praepara|Praesume|Processa|Prohibe|Promitte|Proponere|Protege|Provoca|Pugna|Pulsa|Puni|Quaere|Qualifica|Quassa|Quiesce|Radi|Rapta|Rationa|Reage|Repara|Responde|Retine|Revoca|Roga|Salva|Sana|Scribe|Segrega|Selec|Sentire|Sepone|Serva|Signa|Simula|Solve|Specta|Spira|Statuere|Stringe|Structura|Stude|Subi|Succede|Suffice|Sume|Supra|Surge|Suspende|Sustinere|Tacere|Tange|Tene|Tolle|Tradere|Trahe|Transe|Tribue|Tuere|Valida|Vale|Vehe|Vende|Veni|Vera|Versa|Vide|Vigila|Vincire|Vindica|Vita|Vocare|Volve)/
 
-SR: "SR"
 NAME: /[a-zA-Z_][a-zA-Z0-9_]*/
 NUMBER: /[0-9]+(\.[0-9]+)?/
 ESCAPED_STRING: "\"" /[^"]*/ "\""
 
+// --- Whitespace and Structure ---
 %import common.WS
 %ignore WS

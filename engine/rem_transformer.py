@@ -1,6 +1,6 @@
 # rem-code/engine/rem_transformer.py
 
-from lark import Transformer, v_args
+from lark import Transformer, v_args, Tree
 
 @v_args(inline=True)
 class REMTransformer(Transformer):
@@ -10,76 +10,68 @@ class REMTransformer(Transformer):
         self.env = {}
 
     def start(self, *statements):
+        print(f">>> Start with {len(statements)} statements")
         return list(statements)
 
-    def assignment(self, name, value):
-        self.env[name] = value
-        return ('assign', str(name), value)
+    def statement(self, item):
+        print(f">>> Processing statement: {item}")
+        return item
 
-    def function_call(self, name, *args):
-        return ('call', str(name), list(args))
+    def function_def(self, name, body):
+        print(f">>> Function_def called with name: {name}, body: {body}")
+        return ('function', str(name), body)
+    
+    def function_body(self, *commands):
+        print(f">>> Function_body with commands: {commands}")
+        return list(commands)
 
-    def args(self, *args):
-        return list(args)
-
-    def expr(self, value):
-        return value
-
-    def STRING(self, token):
-        return str(token)[1:-1]
-
-    def SIGNED_NUMBER(self, token):
-        return float(token)
-
-    def NAME(self, token):
-        return str(token)
-
-    def if_collapse(self, *args):
-        # args = [op, threshold, if_block, collapse_block]
-        # "else" のキーワードは literal 扱いなので飛ばして良い
-        op, threshold, if_block, collapse_block = args
-        return ('if_collapse', str(op), float(threshold), if_block, collapse_block)
-   
-    def statement_block(self, *statements):
-        return list(statements)
-
-    def COMPARATOR(self, token):
-        return str(token)
-
-    def COMMENT(self, token):
-        return ('comment', str(token))
-
-    # ✅ command: verb + (string_arg or condition)
-    def command(self, verb, arg_or_condition):
-        return ('call', str(verb), [arg_or_condition])
+    def command(self, verb, arg):
+        print(f">>> Command: {verb} with arg: {arg}")
+        return ('call', str(verb), [arg] if not isinstance(arg, list) else arg)
 
     def verb(self, token):
         return str(token)
 
     def string_arg(self, token):
-        return str(token)[1:-1]
-
-    def sr_condition(self, token):
-        # 例: > 0.5 などの比較条件 → 文字列として評価
-        return str(token)
-
-    def phase_block(self, name, *stmts):
-        return ('phase', str(name), list(stmts))
+        # 引用符を除去
+        return str(token)[1:-1] if str(token).startswith('"') else str(token)
 
     def invoke_block(self, name, *stmts):
+        print(f">>> Invoke block '{name}' with statements: {stmts}")
         return ('invoke', str(name), list(stmts))
 
-    def statement(self, item):
-        return item
+    def phase_block(self, name, *stmts):
+        print(f">>> Phase block '{name}' with statements: {stmts}")
+        return ('phase', str(name), list(stmts))
 
-    def assignment(self, name, value):
-         return ('assign', str(name), value)
+    def collapse_sync_chain(self, comparator, number, collapse_block, elapse_list, sync_block):
+        print(f">>> Collapse-sync chain: {comparator} {number}")
+        return ('collapse_sync', str(comparator), float(number), collapse_block, sync_block)
 
-    def expr(self, value):
-          return value
+    def elapse_list(self, *elapse_blocks):
+        return list(elapse_blocks)
 
-    def comparator(self, token):
-          return str(token)
+    def elapse_block(self, comparator, number, block):
+        return ('elapse', str(comparator), float(number), block)
 
-    def function_def(self, name, *statements):
-           return ('function_def', str(name), list(statements))
+    def statement_block(self, *statements):
+        return list(statements)
+
+    def sr_condition(self, comparator, number):
+        return f"{comparator} {number}"
+
+    # Terminal handlers
+    def NAME(self, token):
+        return str(token)
+
+    def NUMBER(self, token):
+        return float(token)
+
+    def ESCAPED_STRING(self, token):
+        return str(token)[1:-1]  # 引用符を除去
+
+    def LATIN_VERB(self, token):
+        return str(token)
+
+    def COMPARATOR(self, token):
+        return str(token)

@@ -15,9 +15,10 @@ def parse_lines(lines, sr_value=0.0):
     parser = Lark(grammar, parser="lalr", start="start")
 
     code = "\n".join(lines)
+    print(f">>> Parsing code:\n{code}")
+    
     tree = parser.parse(code)
-  
-    print(">>> Parsed Tree:", tree.pretty())  # 🌲 構文木確認
+    print(">>> Parsed Tree:\n", tree.pretty())  # 🌲 構文木確認
 
     # ✅ Transformerを通して AST を tuple に変換
     transformer = REMTransformer(sr_value=sr_value)
@@ -25,6 +26,14 @@ def parse_lines(lines, sr_value=0.0):
 
     print(">>> Transformed AST:", ast)  # ✅ tuple化されたAST
 
-    assert isinstance(ast, list), "Transformer failed to flatten AST"
+    # デバッグ: ASTの詳細分析
+    print(">>> AST Analysis:")
+    if isinstance(ast, list):
+        for i, item in enumerate(ast):
+            print(f"  [{i}] {type(item).__name__}: {item}")
+            if isinstance(item, tuple) and len(item) >= 2:
+                print(f"      Action: {item[0]}, Target: {item[1]}")
+
+    assert isinstance(ast, list), f"Transformer failed to flatten AST, got {type(ast)}"
 
     return ast
