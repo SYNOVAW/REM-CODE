@@ -410,9 +410,17 @@ class REMChatBridge:
                 # Python code execution
                 logger.info(f"Executing Python function: {func.name}")
                 if not self.trusted:
-                    raise PermissionError("Untrusted mode: Python execution disabled")
+                    result["error"] = "Untrusted mode: Python execution disabled"
+                    logger.warning("Attempted Python execution in untrusted mode")
+                    return result
+
+                # Restricted execution environment: empty builtins
+                # NOTE: This provides minimal sandboxing but does not fully
+                # protect against malicious code. Only trusted code should be
+                # executed in this context.
                 local_env = {"context": context, "params": params or {}}
-                exec(func.code, {"__builtins__": {}}, local_env)
+                globals_dict = {"__builtins__": {}}
+                exec(func.code, globals_dict, local_env)
                 
                 # Try to call the function
                 if func.name in local_env:
