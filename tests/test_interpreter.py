@@ -13,7 +13,9 @@ except ImportError:
 from engine.interpreter import REMInterpreter
 
 def test_run_demo():
-    code = pathlib.Path('examples/demo1.remc').read_text(encoding='utf-8')
+    base = pathlib.Path(__file__).resolve().parents[1]
+    code_path = base / 'examples' / 'demo1.remc'
+    code = code_path.read_text(encoding='utf-8')
     interpreter = REMInterpreter()
     results = interpreter.run_rem_code(code)
     assert isinstance(results, list)

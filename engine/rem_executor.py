@@ -12,7 +12,6 @@ from typing import Dict, List, Union, Any, Optional, Tuple
 from dataclasses import dataclass, field
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ==================== Execution Context ====================

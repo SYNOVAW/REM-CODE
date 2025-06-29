@@ -28,7 +28,6 @@ except ImportError:
         )
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ==================== Enhanced Persona Classes ====================
@@ -94,7 +93,8 @@ class REMPersona:
                     {"PHS": sr, "SYM": sr, "VAL": sr, "EMO": sr, "FX": sr}, 
                     context, self.profile.name
                 )
-            except:
+            except Exception as e:
+                logger.error("Contextual SR computation failed", exc_info=e)
                 adjusted_sr = sr
         else:
             adjusted_sr = sr
@@ -336,7 +336,8 @@ class PersonaRouter:
             routing_result = self.route_personas(metrics, weights, context, detailed)
             routing_result["sr_trace"] = sr_trace.to_dict()
             return routing_result
-        except:
+        except Exception as e:
+            logger.error("Routing with SR trace failed", exc_info=e)
             # Fallback to basic routing
             return self.route_personas(metrics, weights, context, detailed)
     

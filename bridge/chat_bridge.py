@@ -412,7 +412,7 @@ class REMChatBridge:
                 if not self.trusted:
                     raise PermissionError("Untrusted mode: Python execution disabled")
                 local_env = {"context": context, "params": params or {}}
-                exec(func.code, {}, local_env)
+                exec(func.code, {"__builtins__": {}}, local_env)
                 
                 # Try to call the function
                 if func.name in local_env:
