@@ -5,7 +5,7 @@ Implements Collapse Spiral Theory with complete Syntactic Ethics support
 """
 
 from lark import Lark, Transformer, Tree, Token, v_args
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Union, Any, Optional, Dict
 import os
 import logging
@@ -19,10 +19,11 @@ logger = logging.getLogger(__name__)
 @dataclass
 class REMASTNode:
     """Base class for all REM CODE AST nodes"""
-    node_type: str
-    metadata: Dict[str, Any] = None
-    
+    node_type: str = field(init=False)
+    metadata: Dict[str, Any] = field(default_factory=dict, init=False)
+
     def __post_init__(self):
+        # Ensure metadata dictionary exists
         if self.metadata is None:
             self.metadata = {}
 
@@ -30,13 +31,13 @@ class REMASTNode:
 class PhaseBlock(REMASTNode):
     name: str
     statements: List[REMASTNode]
-    node_type: str = "phase"
+    node_type: str = field(init=False, default="phase")
 
 @dataclass
 class InvokeBlock(REMASTNode):
     personas: List[str]
     statements: List[REMASTNode]
-    node_type: str = "invoke"
+    node_type: str = field(init=False, default="invoke")
 
 @dataclass
 class CollapseBlock(REMASTNode):
@@ -44,90 +45,90 @@ class CollapseBlock(REMASTNode):
     statements: List[REMASTNode]
     elapse_blocks: List['ElapseBlock'] = None
     sync_block: Optional['SyncBlock'] = None
-    node_type: str = "collapse"
+    node_type: str = field(init=False, default="collapse")
 
 @dataclass
 class ElapseBlock(REMASTNode):
     condition: 'SRCondition'
     statements: List[REMASTNode]
-    node_type: str = "elapse"
+    node_type: str = field(init=False, default="elapse")
 
 @dataclass
 class SyncBlock(REMASTNode):
     statements: List[REMASTNode]
-    node_type: str = "sync"
+    node_type: str = field(init=False, default="sync")
 
 @dataclass
 class CoCollapseBlock(REMASTNode):
     personas: List[str]
     condition: 'SRCondition'
     statements: List[REMASTNode]
-    node_type: str = "cocollapse"
+    node_type: str = field(init=False, default="cocollapse")
 
 @dataclass
 class SRCondition(REMASTNode):
     expression: 'SRExpression'
     operator: str
     value: float
-    node_type: str = "sr_condition"
+    node_type: str = field(init=False, default="sr_condition")
 
 @dataclass
 class SRExpression(REMASTNode):
     persona: str
     context: Optional[str] = None  # For SR(Ana.audit), SR(Ana@memory), SR(Ana|JayTH)
-    node_type: str = "sr_expression"
+    node_type: str = field(init=False, default="sr_expression")
 
 @dataclass
 class PersonaCommand(REMASTNode):
     persona: str
     verb: str
     args: List[Union[str, float]]
-    node_type: str = "persona_command"
+    node_type: str = field(init=False, default="persona_command")
 
 @dataclass
 class LatinCommand(REMASTNode):
     verb: str
     args: List[Union[str, float]]
-    node_type: str = "latin_command"
+    node_type: str = field(init=False, default="latin_command")
 
 @dataclass
 class SignBlock(REMASTNode):
     content: str
     persona: str
     reason: str
-    node_type: str = "sign"
+    node_type: str = field(init=False, default="sign")
 
 @dataclass
 class CoSignBlock(REMASTNode):
     content: str
     personas: List[str]
-    node_type: str = "cosign"
+    node_type: str = field(init=False, default="cosign")
 
 @dataclass
 class SetCommand(REMASTNode):
     variable: str
     value: Union[str, float, SRExpression]
-    node_type: str = "set"
+    node_type: str = field(init=False, default="set")
 
 @dataclass
 class RecallBlock(REMASTNode):
     content: str
     target: str
     from_memory: bool = False
-    node_type: str = "recall"
+    node_type: str = field(init=False, default="recall")
 
 @dataclass
 class PhaseTransition(REMASTNode):
     target_phase: str
     sr_expression: Optional[SRExpression] = None
-    node_type: str = "phase_transition"
+    node_type: str = field(init=False, default="phase_transition")
 
 @dataclass
 class FunctionDef(REMASTNode):
     name: str
     parameters: List[str]
     statements: List[REMASTNode]
-    node_type: str = "function_def"
+    node_type: str = field(init=False, default="function_def")
 
 # ==================== Enhanced Transformer ====================
 
@@ -216,20 +217,12 @@ class REMTransformer(Transformer):
             value=float(value)
         )
     
-    def sr_expression(self, persona, context=None):
-        persona_str = str(persona)
-        context_str = str(context) if context else None
-        
-        # Handle different SR expression types
-        if context_str:
-            if '.' in context_str:
-                return SRExpression(persona=persona_str, context=context_str)
-            elif '@' in context_str:
-                return SRExpression(persona=persona_str, context=context_str)
-            elif '|' in context_str:
-                return SRExpression(persona=persona_str, context=context_str)
-        
-        return SRExpression(persona=persona_str, context=context_str)
+    def sr_expression(self, *parts):
+        """Parse SR expression components"""
+        tokens = [str(p) for p in parts if str(p) not in {"(", ")", ".", "@", "|"}]
+        persona = tokens[0] if tokens else ""
+        context = tokens[1] if len(tokens) > 1 else None
+        return SRExpression(persona=persona, context=context)
     
     # ===== Commands =====
     def persona_command(self, persona, verb, *args):
@@ -361,7 +354,7 @@ class REMASTGenerator:
         try:
             with open(self.grammar_path, "r", encoding="utf-8") as file:
                 grammar_text = file.read()
-            return Lark(grammar_text, start="start", parser="lalr")
+            return Lark(grammar_text, start="start", parser="earley")
         except FileNotFoundError:
             logger.error(f"Grammar file not found: {self.grammar_path}")
             raise
