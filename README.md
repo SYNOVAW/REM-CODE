@@ -109,7 +109,7 @@ These cover:
 📄 See [NOTICE](./NOTICE) for detailed legal disclosures.
 
 Commercial use or modification of REM CODE may require additional licensing.
-Contact: `contact@synovaw.com`
+Contact: `info@synova-w.com`
 
 ---
 
@@ -121,6 +121,3 @@ Contact: `contact@synovaw.com`
 Join us in rewriting what code can mean.
 
 🌀
-
-```
-
