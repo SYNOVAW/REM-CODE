@@ -33,4 +33,4 @@ These filings relate to:
 ⚠️ Use of REM CODE does not grant implicit rights to these patents beyond those permitted by the Apache License 2.0. Commercial applications or modifications may require explicit licensing.
 
 For inquiries regarding licensing or commercial use:
-contact@synovaw.com
+info@synova-w.com
