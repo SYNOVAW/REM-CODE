@@ -1,0 +1,48 @@
+{
+  "agent": "codex",
+  "version": "1.0",
+  "tasks": [
+    {
+      "title": "Fix grammar/example mismatch",
+      "description": "Update examples/demo1.remc to use colon-based syntax (Phase JayDen:) instead of curly braces, to align with grammar/grammar.lark.",
+      "files_affected": ["examples/demo1.remc", "grammar/grammar.lark"],
+      "goals": ["Ensure example code conforms to Lark grammar", "Avoid parser crashes"]
+    },
+    {
+      "title": "Centralize logging setup",
+      "description": "Remove logging.basicConfig() from individual modules like interpreter.py and consolidate it in engine/__init__.py.",
+      "files_affected": ["engine/interpreter.py", "engine/rem_executor.py", "engine/__init__.py"],
+      "goals": ["Prevent conflicting logging configurations", "Make logging behavior consistent"]
+    },
+    {
+      "title": "Replace bare except blocks",
+      "description": "Refactor all bare except: statements in persona_router.py and other engine modules to use except Exception or more specific types with logging.",
+      "files_affected": ["engine/persona_router.py"],
+      "goals": ["Improve error traceability", "Avoid masking unexpected bugs"]
+    },
+    {
+      "title": "Use file-relative paths in tests",
+      "description": "Update test_interpreter.py and other test files to use file-relative paths when loading REM CODE files to support robust testing from any directory.",
+      "files_affected": ["tests/test_interpreter.py", "tests/test_parser.py"],
+      "goals": ["Make tests reliable across environments", "Prevent FileNotFound errors"]
+    },
+    {
+      "title": "Pin versions in requirements.txt",
+      "description": "Specify tested versions for dependencies like lark and numpy in requirements.txt to ensure environment consistency.",
+      "files_affected": ["requirements.txt"],
+      "goals": ["Prevent test skips", "Avoid version mismatch issues"]
+    },
+    {
+      "title": "Secure dynamic code execution",
+      "description": "Review and sandbox exec() usage in REMChatBridge (chat_bridge.py), ensuring execution only happens in a controlled or trusted context.",
+      "files_affected": ["bridge/chat_bridge.py"],
+      "goals": ["Prevent arbitrary code execution risk", "Improve REMChatBridge security model"]
+    },
+    {
+      "title": "Fix f-string syntax in rem_shell.py",
+      "description": "Fix improperly escaped nested f-strings in shell/rem_shell.py, especially dictionary key lookups within f-strings (lines 148–150, 276–299).",
+      "files_affected": ["shell/rem_shell.py"],
+      "goals": ["Resolve SyntaxErrors", "Make REM Shell executable via CLI"]
+    }
+  ]
+}
