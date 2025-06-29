@@ -4,7 +4,7 @@ import json
 
 def parse_remc(file_path):
     # 文法読み込み
-    with open("engine/grammar.lark", "r", encoding="utf-8") as f:
+    with open("grammar/grammar.lark", "r", encoding="utf-8") as f:
         grammar = f.read()
 
     parser = Lark(grammar, parser="lalr", transformer=REMTransformer())

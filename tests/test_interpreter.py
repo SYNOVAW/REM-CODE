@@ -1,0 +1,15 @@
+import pathlib
+import sys
+import pytest
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+pytest.importorskip('numpy')
+pytest.importorskip('lark')
+from engine.interpreter import REMInterpreter
+
+def test_run_demo():
+    code = pathlib.Path('examples/demo1.remc').read_text(encoding='utf-8')
+    interpreter = REMInterpreter()
+    results = interpreter.run_rem_code(code)
+    assert isinstance(results, list)
+    assert results
+
