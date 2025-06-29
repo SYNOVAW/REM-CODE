@@ -8,7 +8,6 @@ Provides high-level interface for REM CODE execution
 import sys
 import logging
 from typing import Dict, List, Any, Optional, Union
-from dataclasses import dataclass, field
 
 # Import REM CODE components
 try:
@@ -22,38 +21,9 @@ except ImportError as e:
 # Configure logging
 logger = logging.getLogger(__name__)
 
-# ==================== Enhanced Persona Context ====================
+from engine.persona_profile import PersonaProfile
 
-@dataclass
-class PersonaProfile:
-    """Enhanced persona profile with SR characteristics"""
-    name: str
-    
-    # SR Component values (0.0 - 1.0)
-    phs: float = 0.8    # Phase Alignment Score
-    sym: float = 0.8    # Symbolic Syntax Match
-    val: float = 0.8    # Semantic Modulation Alignment
-    emo: float = 0.8    # Emotional Phase Match
-    fx: float = 0.8     # Collapse History Interference
-    
-    # Additional characteristics
-    specialization: str = "General"
-    activation_threshold: float = 0.6
-    description: str = ""
-    
-    def get_sr_dict(self) -> Dict[str, float]:
-        """Get SR metrics as dictionary"""
-        return {
-            "PHS": self.phs,
-            "SYM": self.sym,
-            "VAL": self.val,
-            "EMO": self.emo,
-            "FX": self.fx
-        }
-    
-    def compute_sr(self, weights: Optional[Dict[str, float]] = None) -> float:
-        """Compute SR for this persona"""
-        return compute_sr_from_dict(self.get_sr_dict(), weights or DEFAULT_WEIGHTS)
+# ==================== Enhanced Persona Context ====================
 
 # ==================== Default Persona Context ====================
 

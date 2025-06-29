@@ -16,7 +16,8 @@ from pathlib import Path
 # Import REM CODE components
 try:
     from engine.sr_engine import compute_sr_trace, compute_contextual_sr, DEFAULT_WEIGHTS
-    from engine.interpreter import REMInterpreter, PersonaProfile
+    from engine.interpreter import REMInterpreter
+    from engine.persona_profile import PersonaProfile
     from engine.ast_generator import create_ast_generator
     from functions.functions import define_function, call_function, list_functions, generate_ast, memory
 except ImportError as e:
