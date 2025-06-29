@@ -25,8 +25,7 @@ except ImportError as e:
     def compute_sr_trace(*args, **kwargs):
         return {"SR": 0.8, "persona": "Fallback"}
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Logger instance
 logger = logging.getLogger(__name__)
 
 # ==================== Enhanced Data Structures ====================

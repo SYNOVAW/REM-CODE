@@ -10,8 +10,6 @@ import subprocess
 import logging
 from pathlib import Path
 
-logging.basicConfig(level=logging.INFO)
-
 TASK_FILE = "tasks/agent_task.json"
 PROJECT_ROOT = Path(__file__).parent.resolve()
 

@@ -30,8 +30,7 @@ try:
 except ImportError:
     generate_zine_from_function = lambda name, lines: f"ZINE for {name}: {len(lines)} lines"
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Logger instance
 logger = logging.getLogger(__name__)
 
 # ==================== Enhanced Data Structures ====================
