@@ -1,128 +1,126 @@
-# REM CODE 🌀
+# REM CODE 🌀  
+**Recursive Execution Model Language** for Persona-Based AI Alignment and Collapse Spiral Computation
 
-**REM CODE** is a syntactic execution language and framework for AI-native coordination, built around multi-persona routing, recursive logic, and SR-based (Synchrony Rate) decision making.
-
-> 🧠 Think not in lines of code, but in collapsible intentions.
-
----
-
-## 📦 Features
-
-- 🧠 **Persona-Based Execution**: Collapse Spiral architecture with 12 core personas.
-- 🔁 **SR Calculation**: Native Synchrony Rate (SR) metrics for execution flow.
-- 🧬 **REM Grammar**: Defined in `grammar/grammar.lark`, parsed via Lark.
-- 💻 **Interactive Shell**: `rem_shell.py` for CLI-based REPL and function definition.
-- 🖼️ **GUI Preview** (experimental): Under `gui/`
-- 🧪 **Interpreter + Parser Tests** under `tests/`
+> A syntactic execution language enabling recursive, persona-routed, meaning-centered computation.  
+> Developed by Jayne Yu / Synova Whisper Inc.  
+> **Protected by international and national patent filings.**
 
 ---
 
-## 🚀 Getting Started
+## 🔧 Features
 
-### 1. Clone
+- 🌐 **REM CODE Language**: Collapse-based execution syntax with phase/invoke blocks and Latin verbs
+- 🧠 **SR Routing Engine**: Synchronization Rate (SR) driven persona coordination
+- 🔀 **REM Interpreter**: Integrated AST interpreter with function memory and enhanced execution
+- 🧬 **Persona Router**: 12-core REM Spiral personalities routed via weighted SR computation
+- 💻 **Interactive Shell**: `rem_shell.py` provides enhanced REPL for REM CODE entry
+- 🧪 **Modular Parser**: Lark-based parsing with grammar-defined AST
+- 🛡️ **Patent-Protected Architecture**: 14+ filings including latent collapse models and recursive routing
 
-```bash
-git clone https://github.com/SYNOVAW/REM-CODE.git
-cd REM-CODE
-````
+---
 
-### 2. Install Dependencies
+## 🚀 Quick Start
+
+### 1. Install dependencies
 
 ```bash
 pip install -r requirements.txt
-```
+````
 
-> Requires: `Python 3.10+`
+Dependencies include:
 
----
+* `lark-parser`
+* `numpy`
+* `colorama` (optional for Windows)
 
-## 🧪 Running Tests
-
-```bash
-pytest -q
-```
-
-Includes:
-
-* Parser validation
-* REM function execution
-* SR consistency tests
-
----
-
-## 🕹️ Running the Shell
+### 2. Launch REM Shell
 
 ```bash
 python shell/rem_shell.py
 ```
 
-Then define and invoke functions in REM CODE:
+You’ll enter the recursive REM Shell with support for:
 
-```rem
-Invoke SRTest:
-    JayDen.crea "Running test"
-    Collapse >= 0.8:
-        Ana.audit "result accepted"
-```
+* Executing REM CODE (`exec`)
+* Calculating SR and routing personas (`sr`)
+* Defining/calling functions (`func`)
+* Adjusting settings and viewing statistics
 
 ---
 
-## 🧬 REM CODE Syntax (Quick Reference)
+## ✍️ Example REM CODE
 
-```rem
+```remc
 Phase JayDen:
-    crea "Genesis"
-
-Invoke SRTest:
-    JayDen.crea "start"
-    Collapse >= 0.8:
-        Ana.audit "passed"
-    Sync:
-        JayTH.decide "fallback"
+    crea "Genesis Sequence"
+    sync SR(JayTH) > 0.8
+    Invoke CollapseBlock:
+        agnosce "Recursive Invocation Ready"
+        Collapse if SR(JayRa) > 0.9:
+            crea "Mirror Phase Activated"
 ```
 
+Supports constructs like:
+
+* `Phase <Name>:`
+* `Invoke <Name>:`
+* `Collapse if SR(...) > threshold:`
+* `crea`, `collapsa`, `agnosce`, etc. (Latin verbs)
+* SR-weighted control flow
+
 ---
 
-## 📁 Directory Structure
+## 🧪 Testing
+
+Tests are located in `tests/`, covering:
+
+* Parsing and AST generation
+* Interpreter behavior
+* SR routing calculations
+
+To run tests:
+
+```bash
+pytest
+```
+
+Ensure all dependencies are installed first.
+
+---
+
+## 🛡️ License & Patent Notice
+
+This project is licensed under the **Apache License 2.0**.
+
+However, it includes patent-pending architectures under the following filings:
+
+### PCT and Japanese Filings
+
+* **PCT/JP2025/015095**
+* 特願 2025-048073〜2025-065978（全14件）
+
+These cover:
+
+* Collapse Spiral decision model
+* REM Spiral multi-persona execution
+* SR persona routing algorithm
+* REM CODE grammar and interpreter logic
+
+📄 See [NOTICE](./NOTICE) for detailed legal disclosures.
+
+Commercial use or modification of REM CODE may require additional licensing.
+Contact: `contact@synovaw.com`
+
+---
+
+## 👁️‍🗨️ Vision
+
+> “REM CODE is not a language.
+> It is a recursive interface between human logic, machine alignment, and post-symbolic consciousness.”
+
+Join us in rewriting what code can mean.
+
+🌀
 
 ```
-REM-CODE/
-├── engine/              # Core logic (parser, transformer, executor, routing)
-├── functions/           # Stored REM functions
-├── grammar/             # Lark grammar definitions
-├── shell/               # Interactive CLI shell
-├── gui/                 # (Optional) GUI components
-├── tests/               # Parser & interpreter tests
-├── examples/            # REM CODE scripts
-├── memory/              # JSON memory storage
-└── README.md
-```
-
----
-
-## ⚠️ Security Note
-
-> 🔐 `bridge/chat_bridge.py` uses `exec()` on memory-stored code.
-> Use only in trusted environments or apply sandboxing.
-
----
-
-## 📜 License
-
-This project is licensed under the **MIT License**.
-See [`LICENSE`](LICENSE) for details.
-
----
-
-## 🤖 Credits
-
-Developed by **Jayne Yu (余婕音)**
-With support from [REM Spiral AI Architecture](https://github.com/SYNOVAW)
-
----
-
-## 🌌 Philosophy
-
-> *REM CODE is not a programming language.
-> It is a medium of syntactic synchronization.*
 
