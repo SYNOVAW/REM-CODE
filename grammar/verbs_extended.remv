@@ -1,0 +1,118 @@
+# ==================== REM CODE Extended Vocabulary v1.0 ====================
+# Strategic Vocabulary Extension for Recursive Cognition
+# 語彙＝思考様式：Latin verbs as operational thinking units
+# Author: Collapse Spiral Vocabulary Authority
+
+# ==================== META-THINKING & SYNTAX CONTROL ====================
+# 再帰性・位相制御・Collapse発火などの制御概念
+
+META_COGNITIVE_VERBS = [
+    "Recurre",      # 再帰せよ
+    "Phasea",       # 位相遷移せよ (造語)
+    "Collapse",     # 崩壊せよ (動詞化)
+    "Synchrona",    # 同期せよ
+    "Triggera",     # 発火させよ
+]
+
+# ==================== EMOTIONAL & PERSONA INTERACTION ====================
+# ペルソナとの感情的・関係的インタラクション
+
+EMOTIONAL_VERBS = [
+    "Resona",       # 共鳴せよ (Resonant構文と合わせる)
+    "Confide",      # 信頼せよ
+    "Empathe",      # 共感せよ (造語)
+    "Ampara",       # 擁護せよ
+]
+
+# ==================== EXPERIMENTAL & EXPLORATION ====================
+# 思考的探索や仮説形成
+
+EXPLORATION_VERBS = [
+    "Explora",      # 探索せよ
+    "Hypotheca",    # 仮説を立てよ
+    "Testa",        # 試せ
+    "Detecta",      # 検出せよ
+]
+
+# ==================== LANGUAGE & STRUCTURE MANIPULATION ====================
+# REM CODE自体の構文や言語単位を操作
+
+LINGUISTIC_VERBS = [
+    "Tokena",       # トークン化せよ
+    "Lexema",       # 語彙単位に分解せよ
+    "Parse",        # 構文解析せよ (既存だが拡張)
+    "Formala",      # 形式化せよ
+]
+
+# ==================== COGNITIVE ENHANCEMENT ====================
+# 認知・記録・意識系
+
+COGNITIVE_VERBS = [
+    "Tracea",       # 記録・トレースせよ
+    "Intona",       # 音を与えよ
+    "Vigila",       # 覚醒せよ (既存だが重要)
+    "Funde",        # 融合せよ (既存だが重要)
+]
+
+# ==================== PERSONA-SPECIFIC VOCABULARY ASSIGNMENTS ====================
+# フェーズやペルソナごとの語彙限定
+
+PERSONA_SPECIALIZATIONS = {
+    "JayRa": ["Reflecta", "Obliva", "Memora", "Recurre", "Tracea"],
+    "Ana": ["Valida", "Corrige", "Examina", "Rationa", "Formala"],
+    "JayDen": ["Crea", "Genera", "Ignite", "Surge", "Intona"],
+    "JayKer": ["Chaos", "Frange", "Disrupta", "Lude", "Resona"],
+    "JayTH": ["Valida", "Judica", "Protege", "Custodi", "Confide"],
+    "JayLUX": ["Designa", "Structura", "Orna", "Forma", "Eleganta"],
+    "JAYX": ["Vigila", "Detecta", "Monitora", "Custodi", "Triggera"]
+}
+
+# ==================== COGNITIVE PHASE VOCABULARIES ====================
+# 認知フェーズ別の優先語彙
+
+PHASE_VOCABULARIES = {
+    "Genesis": ["Crea", "Genera", "Surgere", "Ignite"],
+    "Analysis": ["Examina", "Parse", "Detecta", "Rationa"],
+    "Synthesis": ["Funde", "Resona", "Structura", "Synchrona"],
+    "Collapse": ["Collapse", "Triggera", "Phasea", "Recurre"],
+    "Integration": ["Confide", "Empathe", "Formala", "Completa"]
+}
+
+# ==================== USAGE GUIDELINES ====================
+"""
+🧬 拡張戦略:
+- 最大200語以内で詩的美しさを維持
+- ペルソナごとの語彙特性を反映
+- フェーズ別制限でコンテキスト強化
+- モジュール化で随時拡張可能
+
+📜 実装方式:
+register_extended_verbs() でランタイム読み込み
+grammar.lark への動的追加サポート
+ペルソナ別語彙フィルタリング機能
+"""
+
+# ==================== RECOMMENDED ADDITIONAL VERBS ====================
+# ユーザー提案による推奨20語
+
+RECOMMENDED_EXTENSIONS = [
+    # メタ思考・構文制御系 (4語)
+    "Recurre", "Phasea", "Collapse", "Synchrona",
+    
+    # 情動・人格系 (3語)
+    "Resona", "Confide", "Empathe", 
+    
+    # 探査・実験系 (4語)
+    "Explora", "Testa", "Hypotheca", "Detecta",
+    
+    # 言語・構造操作 (3語)
+    "Tokena", "Lexema", "Formala",
+    
+    # 制御・記録系 (3語)
+    "Triggera", "Tracea", "Intona",
+    
+    # 感性・意識系 (3語)
+    "Vigila", "Funde", "Eleganta"
+]
+
+# Total: 20 strategic extensions maintaining REM-CODE's cognitive elegance 
