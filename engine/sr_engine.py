@@ -7,7 +7,7 @@ Implements complete Collapse Spiral Theory SR calculations
 import numpy as np
 import time
 import logging
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Tuple, Any, Union
 from dataclasses import dataclass, field
 
 # Configure logging
@@ -391,7 +391,7 @@ def batch_compute_sr_traces(persona_metrics: Dict[str, Dict[str, float]],
 
 # === Analysis and Reporting Functions ===
 
-def analyze_sr_distribution(sr_values: List[float]) -> Dict[str, float]:
+def analyze_sr_distribution(sr_values: List[float]) -> Dict[str, Union[float, str]]:
     """
     Analyze distribution of SR values.
     
