@@ -42,7 +42,7 @@ class InvokeBlock(REMASTNode):
 class CollapseBlock(REMASTNode):
     condition: 'SRCondition'
     statements: List[REMASTNode]
-    elapse_blocks: List['ElapseBlock'] = None
+    elapse_blocks: Optional[List['ElapseBlock']] = None
     sync_block: Optional['SyncBlock'] = None
     node_type: str = field(init=False, default="collapse")
 
@@ -246,10 +246,19 @@ class REMTransformer(Transformer):
         )
     
     # ===== Variable Operations =====
-    def set_command(self, variable, value):
-        var_name = str(variable)
-        self.variable_registry.add(var_name)
-        return SetCommand(variable=var_name, value=value)
+    def set_command(self, *args):
+        # Handle variable number of arguments from different set_command rules
+        # Format: SET NAME ASSIGN value (where value can be sr_expression, string, or number)
+        if len(args) >= 3:
+            var_name = str(args[1])  # NAME is the second token
+            value = args[-1]  # Last token is the value
+            self.variable_registry.add(var_name)
+            return SetCommand(variable=var_name, value=value)
+        else:
+            # Fallback for unexpected argument count
+            var_name = str(args[0]) if args else ""
+            value = args[1] if len(args) > 1 else ""
+            return SetCommand(variable=var_name, value=value)
     
     def use_command(self, variable):
         return SetCommand(variable=str(variable), value="USE")
@@ -260,29 +269,40 @@ class REMTransformer(Transformer):
         return SetCommand(variable=var_name, value=command)
     
     # ===== Signature & Attribution =====
-    def sign_block(self, content, persona, reason):
-        return SignBlock(
-            content=str(content),
-            persona=str(persona),
-            reason=str(reason)
-        )
+    def sign_block(self, *args):
+        # Format: SIGN ESCAPED_STRING BY NAME REASON ESCAPED_STRING
+        if len(args) >= 5:
+            content = str(args[0])  # ESCAPED_STRING
+            persona = str(args[2])  # NAME (after BY)
+            reason = str(args[4])   # ESCAPED_STRING (after REASON)
+            return SignBlock(content=content, persona=persona, reason=reason)
+        else:
+            return SignBlock(content="", persona="", reason="")
     
-    def cosign_block(self, content, personas):
-        return CoSignBlock(
-            content=str(content),
-            personas=self._extract_persona_list(personas)
-        )
+    def cosign_block(self, *args):
+        # Format: COSIGN ESCAPED_STRING BY persona_list
+        if len(args) >= 3:
+            content = str(args[0])  # ESCAPED_STRING
+            personas = args[2]      # persona_list (after BY)
+            return CoSignBlock(content=content, personas=self._extract_persona_list(personas))
+        else:
+            return CoSignBlock(content="", personas=[])
     
-    def reason_block(self, reason):
-        return SignBlock(content="", persona="", reason=str(reason))
+    def reason_block(self, *args):
+        # Format: REASON COLON ESCAPED_STRING
+        if len(args) >= 2:
+            reason = str(args[1])  # ESCAPED_STRING (after COLON)
+            return SignBlock(content="", persona="", reason=reason)
+        else:
+            return SignBlock(content="", persona="", reason="")
     
     # ===== Memory & Transitions =====
-    def recall_block(self, *items):
+    def recall_block(self, *args):
         """Handle recall operations to or from memory"""
-        tokens = [str(it) for it in items]
-        # tokens[1] should be the quoted content
-        content = tokens[1] if len(tokens) > 1 else ""
-        # Determine if we are recalling from memory (presence of 'from')
+        # Format: RECALL ESCAPED_STRING TO NAME
+        # or: RECALL ESCAPED_STRING FROM MEMORY TO NAME
+        tokens = [str(it) for it in args]
+        content = tokens[0] if tokens else ""
         from_memory = "from" in tokens
         target = tokens[-1] if tokens else ""
         return RecallBlock(
@@ -291,24 +311,46 @@ class REMTransformer(Transformer):
             from_memory=from_memory,
         )
     
-    def memoryset_block(self, variable, content):
+    def memoryset_block(self, variable, assign_token, content):
         return SetCommand(variable=str(variable), value=str(content))
     
-    def phase_transition(self, target, sr_expr=None):
-        return PhaseTransition(
-            target_phase=str(target),
-            sr_expression=sr_expr
-        )
+    def phase_transition(self, *args):
+        # Format: PHASETRANS NAME
+        # or: PHASETRANS TO NAME WITH sr_expression
+        if len(args) >= 2:
+            target = str(args[1])  # NAME (after TO or direct)
+            sr_expr = args[-1] if len(args) > 2 else None
+            return PhaseTransition(target_phase=target, sr_expression=sr_expr)
+        else:
+            return PhaseTransition(target_phase="", sr_expression=None)
     
     # ===== Narrative Commands =====
-    def describe_command(self, name, content):
-        return LatinCommand(verb="Describe", args=[str(name), str(content)])
+    def describe_command(self, *args):
+        # Format: DESCRIBE NAME COLON ESCAPED_STRING
+        if len(args) >= 3:
+            name = str(args[0])  # NAME
+            content = str(args[2])  # ESCAPED_STRING (after COLON)
+            return LatinCommand(verb="Describe", args=[name, content])
+        else:
+            return LatinCommand(verb="Describe", args=[])
     
-    def narrate_command(self, name, content):
-        return LatinCommand(verb="Narrate", args=[str(name), str(content)])
+    def narrate_command(self, *args):
+        # Format: NARRATE NAME COLON ESCAPED_STRING
+        if len(args) >= 3:
+            name = str(args[0])  # NAME
+            content = str(args[2])  # ESCAPED_STRING (after COLON)
+            return LatinCommand(verb="Narrate", args=[name, content])
+        else:
+            return LatinCommand(verb="Narrate", args=[])
     
-    def visualize_command(self, name, content):
-        return LatinCommand(verb="Visualize", args=[str(name), str(content)])
+    def visualize_command(self, *args):
+        # Format: VISUALIZE NAME COLON ESCAPED_STRING
+        if len(args) >= 3:
+            name = str(args[0])  # NAME
+            content = str(args[2])  # ESCAPED_STRING (after COLON)
+            return LatinCommand(verb="Visualize", args=[name, content])
+        else:
+            return LatinCommand(verb="Visualize", args=[])
     
     # ===== Helper Methods =====
     def _extract_persona_list(self, personas):
@@ -417,8 +459,10 @@ class REMASTGenerator:
         spaces = "  " * indent
         for i, node in enumerate(ast):
             print(f"{spaces}[{i}] {node.node_type}: {node}")
-            if hasattr(node, 'statements') and node.statements:
-                self.pretty_print_ast(node.statements, indent + 1)
+            # Check if this is a node type that has statements
+            if isinstance(node, (PhaseBlock, InvokeBlock, CollapseBlock, ElapseBlock, SyncBlock, CoCollapseBlock, FunctionDef)):
+                if node.statements:
+                    self.pretty_print_ast(node.statements, indent + 1)
 
 # ==================== Factory Function ====================
 
