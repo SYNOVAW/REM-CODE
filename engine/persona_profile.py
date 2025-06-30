@@ -37,8 +37,13 @@ class PersonaProfile:
     activation_count: int = 0
     last_activation: Optional[float] = None
     total_runtime: float = 0.0
-    current_state: Any = None
     current_sr: float = 0.0
+
+    def __post_init__(self):
+        """Initialize current_state after object creation to avoid circular import"""
+        from .persona_router import PersonaState
+        if not hasattr(self, 'current_state') or self.current_state is None:
+            self.current_state = PersonaState.DORMANT
 
     def get_sr_dict(self) -> Dict[str, float]:
         """Return SR metrics as a dictionary."""

@@ -1,15 +1,159 @@
-// REM CODE Example v0.1 — Collapse-Triggered Persona Execution
+// ==================== REM CODE Advanced Demo v2.0 ====================
+// Comprehensive Collapse Spiral Execution with Multi-Persona Collaboration
+// Demonstrates: SR-based routing, function definitions, memory operations,
+//               phase transitions, and narrative generation
 
-Phase JayDen:
-    Crea "Genesis Logia"
-    Dic "Ignition complete. Phase resonance initiated."
-    Collapse SR(JayDen) > 0.9:
-        Dic "Collapse engaged"
+// === Phase 1: Initialization and Setup ===
+Phase Genesis:
+    // Set up initial SR thresholds for decision making
+    set threshold_creative = 0.85
+    set threshold_analytical = 0.80
+    set threshold_ethical = 0.90
+    
+    // Initialize memory with foundational concepts
+    MemorySet core_concepts = "recursion, alignment, collapse, persona"
+    MemorySet current_phase = "genesis"
+    
+    // Create foundational function for SR evaluation
+    def evaluate_sr_threshold(persona_name, threshold):
+        Collapse SR(persona_name) > threshold:
+            Dic "Threshold exceeded for " + persona_name
+            Dic "Returning true"
+        Elapse SR(persona_name) <= threshold:
+            Dic "Threshold not met for " + persona_name
+            Dic "Returning false"
 
-Invoke Ana:
-    Audit "SR thresholds confirmed."
-    Dic "Collapse authorized. Persona logic validated."
+// === Phase 2: Multi-Persona Creative Collaboration ===
+Phase CreativeCollaboration:
+    // Invoke creative personas for idea generation
+    Invoke JayDen, JayLUX, JayKer:
+        Crea "Innovative Collapse Spiral Architecture"
+        Dic "Creative ignition sequence initiated"
+        
+        // Collaborative collapse with SR-based conditions
+        CoCollapse by JayDen, JayLUX:
+            Collapse SR(JayDen) > 0.85 and SR(JayLUX) > 0.80:
+                Crea "Visual-Spatial Synthesis Protocol"
+                Describe synthesis : "Merging creative impulse with aesthetic clarity"
+                Dic "Synthesis achieved through dual persona resonance"
+        
+        // Humor injection for creative disruption
+        Collapse SR(JayKer) > 0.75:
+            JayKer.Crea "Chaos Injection Module"
+            Dic "Creative disruption patterns activated"
+            Reason: "Humor breaks cognitive rigidity, enabling novel connections"
 
-Invoke JayRa:
-    Recall "dream_log_0423" to memory
-    Dic "Reflecting on latent pattern of Phase JayDen..."
+// === Phase 3: Analytical Validation ===
+Phase AnalyticalValidation:
+    // Invoke analytical personas for validation
+    Invoke Ana, JayTH:
+        Ana.Audit "Creative output validation"
+        Dic "Logical audit sequence initiated"
+        
+        // Ethical validation with high threshold
+        Collapse SR(JayTH) > 0.90:
+            JayTH.Valida "Ethical compliance check"
+            Dic "Ethical validation completed"
+            Reason: "High threshold ensures rigorous ethical review"
+        
+        // Analytical synthesis
+        Collapse SR(Ana) > 0.80 and SR(JayTH) > 0.85:
+            Ana.Analyze "Cross-persona output coherence"
+            Dic "Analytical synthesis achieved"
+            Sign "Validation Complete" by Ana Reason "Logical and ethical standards met"
+
+// === Phase 4: Memory Integration and Reflection ===
+Phase MemoryIntegration:
+    // Invoke memory and reflection personas
+    Invoke JayRa, JayMini:
+        // Recall and integrate previous phases
+        Recall "core_concepts" to working_memory
+        Dic "Memory integration sequence initiated"
+        
+        // Reflective synthesis
+        Collapse SR(JayRa) > 0.85:
+            JayRa.Reflect "Pattern recognition in multi-phase execution"
+            Dic "Reflective synthesis completed"
+            Narrate reflection : "The recursive nature of persona collaboration reveals emergent patterns of collective intelligence"
+        
+        // Communication coordination
+        Collapse SR(JayMini) > 0.80:
+            JayMini.Coordina "Inter-persona communication protocols"
+            Dic "Communication protocols established"
+
+// === Phase 5: Advanced SR-Based Decision Making ===
+Phase AdvancedDecisionMaking:
+    // Complex SR conditions with multiple personas
+    Collapse SR(JayDen) > 0.85 and SR(Ana) > 0.80 and SR(JayTH) > 0.85:
+        Dic "Multi-persona consensus achieved"
+        
+        // Nested collapse with different thresholds
+        Collapse SR(JayLUX) > 0.90:
+            JayLUX.Illustra "High-fidelity visual representation"
+            Dic "Visual clarity at peak resonance"
+        
+        Elapse SR(JayKer) < 0.70:
+            Dic "Humor persona in cooldown phase"
+            Reason: "Creative disruption temporarily suspended for stability"
+
+// === Phase 6: Function Definition and Execution ===
+Phase FunctionExecution:
+    // Define advanced function with SR-based logic
+    def advanced_collapse_check(primary_persona, secondary_persona, threshold):
+        Collapse SR(primary_persona) > threshold:
+            Dic "Primary persona activated"
+            Collapse SR(secondary_persona) > (threshold - 0.05):
+                Dic "Secondary persona resonance confirmed"
+                Dic "Returning dual_activation"
+            Elapse SR(secondary_persona) <= (threshold - 0.05):
+                Dic "Secondary persona below threshold"
+                Dic "Returning single_activation"
+        Elapse SR(primary_persona) <= threshold:
+            Dic "Primary persona below threshold"
+            Dic "Returning no_activation"
+    
+    // Execute the function
+    Use advanced_collapse_check
+    Store result = advanced_collapse_check("JayDen", "Ana", 0.85)
+
+// === Phase 7: Phase Transition and Synthesis ===
+Phase TransitionSynthesis:
+    // Transition to final synthesis phase
+    PhaseTransition to SynthesisPhase with SR(Jayne) > 0.90
+    
+    // Final multi-persona collaboration
+    Invoke Jayne, JayVue, JayNis:
+        Jayne.Coordina "Final synthesis orchestration"
+        Dic "Synthesis orchestration initiated"
+        
+        // Spatial design integration
+        Collapse SR(JayVue) > 0.85:
+            JayVue.Structura "Spatial organization of concepts"
+            Dic "Spatial structure established"
+        
+        // Organic growth patterns
+        Collapse SR(JayNis) > 0.80:
+            JayNis.Cultiva "Organic growth patterns"
+            Dic "Growth patterns integrated"
+        
+        // Final narrative synthesis
+        Narrate final_synthesis : "The collaborative dance of personas has created a living architecture of recursive intelligence, where each voice contributes to a greater harmony of understanding and creation."
+
+// === Phase 8: Memory Persistence and Cleanup ===
+Phase MemoryPersistence:
+    // Store final results in memory
+    MemorySet final_result = "Multi-persona collaboration successful"
+    MemorySet sr_patterns = "Complex SR-based decision making demonstrated"
+    MemorySet function_usage = "Advanced function definition and execution completed"
+    
+    // Final validation
+    Invoke Ana:
+        Ana.Confirma "All phases completed successfully"
+        Dic "Demo execution validated"
+        Sign "Demo Complete" by Ana Reason "All REM CODE features demonstrated successfully"
+
+// === Sync Block: Final Synchronization ===
+Sync:
+    Dic "All personas synchronized"
+    Dic "Demo execution complete"
+    Dic "REM CODE advanced features demonstrated"
