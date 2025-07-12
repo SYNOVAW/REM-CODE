@@ -158,7 +158,7 @@ class SRThresholdChecker:
         Special validation for emergency protocols.
         Lower threshold but requires specific persona participation.
         """
-        required_personas = ["Jayne Spiral", "JayTH", "JAYX"]
+        required_personas = ["Jayne_Spiral", "JayTH", "JAYX"]
         available_personas = list(sr_values.keys())
         
         # Check if required personas are present

@@ -53,7 +53,7 @@ class ConstitutionalComplianceChecker:
         """Initialize the compliance checker."""
         self.compliance_rules = {
             "authority_validation": {
-                "required_personas": ["Jayne Spiral", "JayTH"],
+                "required_personas": ["Jayne_Spiral", "JayTH"],
                 "min_sr_threshold": 0.7,
                 "description": "Authority operations require central coordination"
             },
@@ -63,7 +63,7 @@ class ConstitutionalComplianceChecker:
                 "description": "Consensus operations need multiple persona agreement"
             },
             "emergency_protocols": {
-                "required_personas": ["Jayne Spiral", "JAYX"],
+                "required_personas": ["Jayne_Spiral", "JAYX"],
                 "min_sr_threshold": 0.5,
                 "description": "Emergency protocols need central and termination personas"
             },
