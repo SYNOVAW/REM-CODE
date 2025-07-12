@@ -1,0 +1,26 @@
+// ==================== REM-CODE Constitutional Programming Tutorial ====================
+// Example 1: Basic Authority Validation
+// Learn how to use Authority constructs for democratic programming
+
+// Basic authority requirement - ensures persona has required constitutional level
+Authority JayTH requires Constitutional:
+    // JayTH can perform constitutional actions
+    JayTH.Cogita "constitutional framework analysis"
+    JayTH.Declara "constitutional interpretation complete"
+    
+// Multi-persona authority with branch assignment
+Authority Ana as Judicial:
+    // Ana operates within Judicial branch powers
+    Ana.Rationa "legal precedent review"
+    Ana.Decidere "judicial decision rendered"
+
+// Trinity authority - requires 2 of 3 Trinity members (JayTH, Ana, Jayne_Spiral)
+Authority trinity JayTH, Ana:
+    // High-level constitutional coordination
+    Constitutional action "Basic Framework Demo" by JayTH, Ana:
+        JayTH.Cogita "trinity authority validation"
+        Ana.Verificare "legal compliance confirmed"
+        
+        // Sign the constitutional action with reasoning
+        Sign "Framework Demo #001" by JayTH Reason "Constitutional authority exercised"
+        Sign "Framework Demo #001" by Ana Reason "Legal validation completed"

@@ -156,19 +156,41 @@ class AuthorityValidator:
         Returns:
             bool: True if authority is valid
         """
+        from .error_messages import show_constitutional_error
+        
         persona_authority = self.get_persona_authority(context.persona)
         required_authority = context.requested_authority
+        
+        # Check if persona exists
+        if context.persona not in self.persona_to_branch and context.persona not in TRINITY_AUTHORITY and context.persona not in EMERGENCY_AUTHORITY:
+            show_constitutional_error("unknown_persona", persona=context.persona)
+            return False
         
         # Check authority hierarchy
         persona_level = AUTHORITY_HIERARCHY.get(persona_authority, 0)
         required_level = AUTHORITY_HIERARCHY.get(required_authority, 0)
         
         if persona_level < required_level:
-            logger.warning(
-                f"❌ Authority insufficient: {context.persona} has {persona_authority.value}, "
-                f"needs {required_authority.value} for {context.action}"
+            show_constitutional_error(
+                "insufficient_authority",
+                persona=context.persona,
+                current_level=persona_authority.value,
+                required_level=required_authority.value,
+                action=context.action
             )
             return False
+        
+        # Check branch compatibility if specified
+        if context.branch:
+            persona_branch = self.get_persona_branch(context.persona)
+            if persona_branch and persona_branch != context.branch:
+                show_constitutional_error(
+                    "branch_mismatch",
+                    persona=context.persona,
+                    actual_branch=persona_branch,
+                    requested_branch=context.branch
+                )
+                # Warning but not blocking
         
         logger.info(
             f"✅ Authority validated: {context.persona} ({persona_authority.value}) "
@@ -193,13 +215,21 @@ class AuthorityValidator:
     
     def check_trinity_authority(self, personas: List[str]) -> bool:
         """Check if personas constitute valid Trinity authority"""
+        from .error_messages import show_constitutional_error
+        
         trinity_present = set(personas) & set(self.trinity_authority)
         is_valid = len(trinity_present) >= 2  # At least 2 of 3 Trinity members
         
         if is_valid:
             logger.info(f"✅ Trinity authority validated: {list(trinity_present)}")
         else:
-            logger.warning(f"❌ Insufficient Trinity authority: {list(trinity_present)}")
+            show_constitutional_error(
+                "trinity_incomplete",
+                present_count=len(trinity_present),
+                present_members=list(trinity_present),
+                required_count=2,
+                trinity_members=self.trinity_authority
+            )
             
         return is_valid
     

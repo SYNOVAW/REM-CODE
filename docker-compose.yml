@@ -1,0 +1,83 @@
+# REM-CODE Lite Docker Compose Configuration
+# Easy setup for constitutional programming development
+
+version: '3.8'
+
+services:
+  # Main REM-CODE Lite application
+  rem-code-lite:
+    build: .
+    container_name: rem-code-lite
+    ports:
+      - "8080:8080"  # Web shell
+      - "8081:8081"  # Dashboard  
+      - "8888:8888"  # Jupyter notebook
+    environment:
+      - REM_CODE_MODE=development
+      - PORT=8080
+    volumes:
+      - ./user_programs:/app/user_programs  # Persistent user programs
+      - ./data:/app/data                    # Persistent data
+      - ./logs:/app/logs                    # Persistent logs
+    command: web
+    restart: unless-stopped
+    
+  # Interactive tutorial service
+  rem-tutorial:
+    build: .
+    container_name: rem-tutorial
+    environment:
+      - REM_CODE_MODE=tutorial
+    volumes:
+      - ./user_programs:/app/user_programs
+    command: tutorial
+    stdin_open: true
+    tty: true
+    profiles: ["tutorial"]
+    
+  # Constitutional dashboard
+  rem-dashboard:
+    build: .
+    container_name: rem-dashboard
+    ports:
+      - "8081:8081"
+    environment:
+      - REM_CODE_MODE=dashboard
+      - PORT=8081
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    command: dashboard
+    restart: unless-stopped
+    profiles: ["dashboard"]
+    
+  # Jupyter notebook for constitutional programming
+  rem-jupyter:
+    build: .
+    container_name: rem-jupyter
+    ports:
+      - "8888:8888"
+    environment:
+      - REM_CODE_MODE=notebook
+      - PORT=8888
+    volumes:
+      - ./user_programs:/app/user_programs
+      - ./examples:/app/examples:ro  # Read-only examples
+      - ./data:/app/data
+    command: jupyter
+    restart: unless-stopped
+    profiles: ["jupyter"]
+
+# Shared volumes for persistent data
+volumes:
+  user_programs:
+    driver: local
+  rem_data:
+    driver: local
+  rem_logs:
+    driver: local
+
+# Network configuration
+networks:
+  default:
+    name: rem-code-network

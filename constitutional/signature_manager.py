@@ -53,7 +53,9 @@ class SignatureManager:
                           signer_persona: str,
                           sr_value: float,
                           decision_id: str,
-                          metadata: Optional[Dict[str, Any]] = None) -> ConstitutionalSignature:
+                          metadata: Optional[Dict[str, Any]] = None,
+                          action_name: str = "",
+                          reasoning: str = "") -> ConstitutionalSignature:
         """
         Generate a constitutional signature for a decision.
         
@@ -63,10 +65,28 @@ class SignatureManager:
             sr_value: SR value at time of signing
             decision_id: Unique identifier for the decision
             metadata: Additional metadata
+            action_name: Name of the action being signed
+            reasoning: Reasoning for the signature
             
         Returns:
             ConstitutionalSignature object
         """
+        from .error_messages import show_constitutional_error
+        
+        # Validate signature requirements
+        if not action_name:
+            show_constitutional_error(
+                "missing_signature",
+                action=decision_id or "unnamed_action",
+                persona=signer_persona
+            )
+            
+        if reasoning and len(reasoning.strip()) < 10:
+            show_constitutional_error(
+                "insufficient_reasoning",
+                reasoning=reasoning
+            )
+        
         timestamp = time.time()
         
         # Create signature data
@@ -76,7 +96,9 @@ class SignatureManager:
             "sr_value": sr_value,
             "timestamp": timestamp,
             "decision_id": decision_id,
-            "metadata": metadata or {}
+            "action_name": action_name,
+            "reasoning": reasoning,
+            "metadata": {**(metadata or {}), "action_name": action_name, "reasoning": reasoning}
         }
         
         # Generate hash
@@ -90,7 +112,11 @@ class SignatureManager:
             sr_value=sr_value,
             timestamp=timestamp,
             signature_hash=signature_hash,
-            metadata=metadata or {},
+            metadata={
+                **(metadata or {}),
+                "action_name": action_name,
+                "reasoning": reasoning
+            },
             decision_id=decision_id
         )
         
@@ -113,13 +139,15 @@ class SignatureManager:
         if signature_hash in self.signature_cache:
             signature = self.signature_cache[signature_hash]
             
-            # Recreate signature data
+            # Recreate signature data (must match generation exactly)
             signature_data = {
                 "type": signature.signature_type.value,
                 "persona": signature.signer_persona,
                 "sr_value": signature.sr_value,
                 "timestamp": signature.timestamp,
                 "decision_id": signature.decision_id,
+                "action_name": signature.metadata.get("action_name", ""),
+                "reasoning": signature.metadata.get("reasoning", ""),
                 "metadata": signature.metadata
             }
             

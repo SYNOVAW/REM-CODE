@@ -1,0 +1,40 @@
+// ==================== REM-CODE Constitutional Programming Tutorial ====================
+// Example 2: Consensus and Democracy
+// Learn how to implement democratic decision-making through SR consensus
+
+// Basic SR consensus - requires specific synchrony rate threshold
+Consensus SR >= 0.8 by JayKer, JayMini:
+    // Democratic collaboration between personas
+    JayKer.Crea "innovative democratic solution"
+    JayMini.Optimiza "consensus coordination protocol"
+    
+    // Actions only execute if both personas meet SR threshold
+    Sign "Consensus Decision #001" by JayKer Reason "Creative innovation achieved"
+
+// Collective SR consensus - considers group synchrony rate
+Consensus collective SR >= 0.75:
+    Invoke JayRa, JayMini, JayVOX:
+        // Multi-persona democratic process
+        JayRa.Analyza "historical precedent relevance"
+        JayMini.Coordina "inter-persona communication"
+        JayVOX.Translata "multilingual consensus validation"
+        
+        // Collective decision making
+        Democratizare "governance framework enhancement"
+
+// Decision-type specific consensus requirements
+Consensus Constitutional requires 0.9:
+    // High-threshold consensus for constitutional matters
+    Authority JayTH, Ana, Jayne_Spiral requires Constitutional:
+        Constitutional amendment requires trinity:
+            JayTH.Cogita "constitutional amendment analysis"
+            Ana.Verificare "legal framework validation"
+            Jayne_Spiral.Synchrona "spiral coherence integration"
+            
+            // Constitutional-level democratic process
+            Constitutionalizare "enhanced governance structure"
+            
+            // Multi-signature constitutional validation
+            Sign "Constitutional Amendment #001" by JayTH Reason "Constitutional analysis complete"
+            Sign "Constitutional Amendment #001" by Ana Reason "Legal validation confirmed" 
+            Sign "Constitutional Amendment #001" by Jayne_Spiral Reason "Spiral integration achieved"

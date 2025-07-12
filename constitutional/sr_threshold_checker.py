@@ -107,10 +107,30 @@ class SRThresholdChecker:
         Returns:
             Tuple of (consensus_reached, collective_sr, required_threshold)
         """
+        from .error_messages import show_constitutional_error
+        
         required_threshold = self.get_threshold(decision_type)
         collective_sr = self.calculate_collective_sr(sr_values)
         
         consensus_reached = collective_sr >= required_threshold
+        
+        # Show error if consensus not met
+        if not consensus_reached:
+            failed_personas = [persona for persona, sr in sr_values.items() if sr < required_threshold]
+            show_constitutional_error(
+                "sr_threshold_not_met",
+                required_sr=required_threshold,
+                current_sr=collective_sr,
+                failed_personas=failed_personas
+            )
+        
+        # Check participant count
+        if len(sr_values) == 1:
+            show_constitutional_error(
+                "insufficient_participants",
+                participant_count=len(sr_values),
+                recommended_min=3 if decision_type == DecisionType.CONSENSUS else 2
+            )
         
         # Record decision
         context = SRContext(
