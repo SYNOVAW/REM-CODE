@@ -20,7 +20,7 @@ LPAR: "("
 RPAR: ")"
 COMMA: ","
 
-// Keywords
+// Keywords  
 PHASE: "Phase"
 INVOKE: "Invoke" 
 DEF: "def"
@@ -50,6 +50,30 @@ OR: "or"
 WITH: "with"
 MEMORY: "memory"
 SR: "SR"
+
+// Constitutional Keywords (v2.4 Extension)
+AUTHORITY: "Authority"
+CONSENSUS: "Consensus"
+VALIDATE: "Validate"
+EMERGENCY: "Emergency"
+TRINITY: "Trinity"
+CONSTITUTIONAL: "Constitutional"
+REQUIRES: "requires"
+AS: "as"
+CONSTITUTIONAL_KW: "constitutional"
+COMPLIANCE: "compliance"
+FOR: "for"
+OVERRIDE: "override"
+PROTOCOL: "protocol"
+AUTHORIZATION: "authorization"
+COORDINATION: "coordination"
+UNANIMOUS: "unanimous"
+MAJORITY: "majority"
+DECISION: "decision"
+ACTION: "action"
+AMENDMENT: "amendment"
+INTERPRETATION: "interpretation"
+ENFORCEMENT: "enforcement"
 
 // Latin Verbs (Core REM CODE vocabulary)
 LATIN_VERB: "Acta" | "Adda" | "Adde" | "Agnosce" | "Aperi" | "Applicare"
@@ -116,6 +140,13 @@ statement: phase_block
          | visualize_command
          | cocollapse_block
          | cosign_block
+         // Constitutional Extensions (v2.4)
+         | authority_block
+         | consensus_block
+         | validate_block
+         | emergency_block
+         | trinity_block
+         | constitutional_block
 
 // === Phase ===
 phase_block: PHASE NAME COLON statement+
@@ -188,6 +219,52 @@ phase_transition: PHASETRANS NAME
 describe_command: DESCRIBE NAME COLON ESCAPED_STRING
 narrate_command: NARRATE NAME COLON ESCAPED_STRING
 visualize_command: VISUALIZE NAME COLON ESCAPED_STRING
+
+// ==================== CONSTITUTIONAL CONSTRUCTS v2.4 ====================
+// Democratic Programming Extensions for REM CODE
+
+// Authority validation and delegation
+authority_block: AUTHORITY authority_spec COLON statement+
+authority_spec: persona_list REQUIRES authority_level
+            | persona_list AS branch_name
+            | TRINITY persona_list
+            | EMERGENCY persona_list
+
+authority_level: "General" | "Security" | "Legal" | "Constitutional" | "Emergency"
+branch_name: "Judicial" | "Legislative" | "Executive" | "Ministerial"
+
+// Democratic consensus validation  
+consensus_block: CONSENSUS consensus_spec COLON statement+
+consensus_spec: SR COMPARATOR SIGNED_NUMBER BY persona_list
+             | "collective" SR COMPARATOR SIGNED_NUMBER
+             | decision_type REQUIRES SIGNED_NUMBER
+
+decision_type: "Routine" | "Significant" | "Critical" | "Constitutional" | "Emergency" | "Protocol"
+
+// Constitutional compliance validation
+validate_block: VALIDATE validate_spec COLON statement+
+validate_spec: CONSTITUTIONAL_KW COMPLIANCE FOR persona_list
+            | "authority" AND "consensus"
+            | "signatures" AND "witnesses"
+
+// Emergency procedures with enhanced validation
+emergency_block: EMERGENCY emergency_spec COLON statement+
+emergency_spec: OVERRIDE WITH persona_list
+             | PROTOCOL ESCAPED_STRING BY persona_list
+             | TRINITY AUTHORIZATION
+
+// Trinity coordination (JayTH, Ana, Jayne_Spiral)
+trinity_block: TRINITY trinity_spec COLON statement+
+trinity_spec: COORDINATION REQUIRES SIGNED_NUMBER "of" SIGNED_NUMBER
+           | UNANIMOUS "consensus"
+           | MAJORITY DECISION
+
+// Constitutional actions with full validation
+constitutional_block: CONSTITUTIONAL constitutional_spec COLON statement+
+constitutional_spec: ACTION ESCAPED_STRING BY persona_list
+                  | AMENDMENT REQUIRES TRINITY
+                  | INTERPRETATION BY branch_name
+                  | ENFORCEMENT WITH authority_level
 
 // === Comments ===
 COMMENT: "//" /[^\r\n]*/
