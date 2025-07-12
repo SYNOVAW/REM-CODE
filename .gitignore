@@ -6,3 +6,6 @@ __pycache__/
 
 # Runtime-generated files
 memory.json
+
+# Python virtual environment
+venv/
