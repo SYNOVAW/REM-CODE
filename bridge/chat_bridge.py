@@ -13,6 +13,12 @@ from typing import Dict, List, Any, Optional, Tuple, Union
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import sys
+import os
+
+# Add the parent directory to the Python path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 # Import REM CODE components
 try:
     from engine.sr_engine import compute_sr_trace, compute_contextual_sr, DEFAULT_WEIGHTS

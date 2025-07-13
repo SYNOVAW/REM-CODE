@@ -3,7 +3,7 @@
 from lark import Lark, Transformer, v_args
 import os
 
-GRAMMAR_FILE = "parser/grammar.lark"
+GRAMMAR_FILE = "grammar/grammar.lark"
 DEMO_FILE = "examples/demo1.remc"
 
 def load_grammar(path):

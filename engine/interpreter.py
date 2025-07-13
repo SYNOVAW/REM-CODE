@@ -105,9 +105,7 @@ DEFAULT_PERSONAS = {
 # ==================== Enhanced REM Interpreter ====================
 
 class REMInterpreter:
-    """
-    Unified REM CODE Interpreter with full Collapse Spiral support
-    """
+    """Enhanced REM Interpreter with improved error handling"""
     
     def __init__(self, personas: Optional[Dict[str, PersonaProfile]] = None):
         """Initialize interpreter with persona context"""
@@ -119,6 +117,38 @@ class REMInterpreter:
         
         # Initialize executor context with persona SR values
         self._initialize_persona_context()
+        
+        # Enhanced error handling
+        self.error_context = []
+        self.debug_mode = False
+    
+    def add_error_context(self, context: str):
+        """Add context to error tracking"""
+        self.error_context.append(context)
+        
+    def clear_error_context(self):
+        """Clear error context"""
+        self.error_context.clear()
+        
+    def format_error(self, error: Exception, context: str = "") -> str:
+        """Format error with detailed context"""
+        error_msg = f"❌ Error: {str(error)}"
+        if context:
+            error_msg += f"\n📍 Context: {context}"
+        if self.error_context:
+            error_msg += f"\n🔍 Error Context:\n" + "\n".join(f"  • {ctx}" for ctx in self.error_context)
+        return error_msg
+        
+    def execute_with_error_handling(self, code: str, context: str = "Execution") -> Dict[str, Any]:
+        """Execute code with enhanced error handling"""
+        try:
+            self.clear_error_context()
+            self.add_error_context(f"Executing: {context}")
+            result = self.execute(code)
+            return {"success": True, "result": result, "error": None}
+        except Exception as e:
+            error_msg = self.format_error(e, context)
+            return {"success": False, "result": None, "error": error_msg}
     
     def _initialize_persona_context(self):
         """Initialize executor context with persona profiles"""

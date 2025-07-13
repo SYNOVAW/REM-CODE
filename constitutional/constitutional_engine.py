@@ -92,7 +92,7 @@ class ConstitutionalEngine:
             'metadata': action.metadata
         }
         return self.compliance_checker.check_compliance(**context)
-
+    
     def create_constitutional_signatures(self, action: ConstitutionalAction) -> list:
         """Create signatures for constitutional action"""
         signatures = []
@@ -182,9 +182,9 @@ class ConstitutionalEngine:
             #         "compliance_level": compliance_result.compliance_level.value
             #     }
             # )
-
+            
             execution_time = (time.time() - start_time) * 1000
-
+            
             result = ExecutionResult(
                 success=True,
                 action_id=action.action_id,
@@ -196,10 +196,10 @@ class ConstitutionalEngine:
                     "collective_sr": collective_sr
                 }
             )
-
+            
             self.execution_history.append(result)
             logger.info(f"🎉 Constitutional action {action.action_id} completed successfully")
-
+            
             return result
             
         except Exception as e:

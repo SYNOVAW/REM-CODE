@@ -353,7 +353,7 @@ def handle_sr_command(args: List[str]) -> None:
     """Enhanced SR calculation with beautiful visualization"""
     if shell_state is None:
         return
-    
+        
     # Update stats
     shell_state.stats["sr_calculations"] += 1
     shell_state.stats["commands_executed"] += 1
@@ -464,7 +464,7 @@ def handle_sr_command(args: List[str]) -> None:
         if shell_state.visual_mode:
             safe_print(Panel(f"[red]❌ Error in SR calculation: {e}[/red]", border_style="red"))
         else:
-            print(f"{colored('❌ Error in SR calculation:', Colors.RED)} {e}")
+        print(f"{colored('❌ Error in SR calculation:', Colors.RED)} {e}")
 
 def handle_execute_command(args: List[str]) -> None:
     """Execute REM CODE with visual collapse events"""
@@ -480,7 +480,7 @@ def handle_execute_command(args: List[str]) -> None:
                 if shell_state.visual_mode:
                     line = Prompt.ask("rem")
                 else:
-                    line = input("rem> ")
+                line = input("rem> ")
                 if line.strip().lower() == "end":
                     break
                 lines.append(line)
@@ -539,7 +539,7 @@ def handle_execute_command(args: List[str]) -> None:
                     safe_print(f"   [dim]→[/dim] {res}")
             else:
                 safe_print(f"\n📤 [bold green]Result:[/bold green] {result}")
-            
+        
             # Create execution summary
             summary_table = Table(show_header=True, header_style="bold blue")
             summary_table.add_column("Metric", style="cyan")
@@ -572,7 +572,7 @@ def handle_execute_command(args: List[str]) -> None:
         if shell_state.visual_mode:
             safe_print(Panel(f"[red]❌ Execution error: {e}[/red]", border_style="red"))
         else:
-            print(f"{colored('❌ Execution error:', Colors.RED)} {e}")
+        print(f"{colored('❌ Execution error:', Colors.RED)} {e}")
         
         if shell_state.config["debug_mode"]:
             traceback.print_exc()
@@ -818,22 +818,22 @@ def handle_help_command(args: List[str]) -> None:
         help_table = Table(show_header=True, header_style="bold bright_blue", box=ROUNDED)
         help_table.add_column("Command", style="bold cyan", width=15)
         help_table.add_column("Description", style="white", width=45)
-        
-        commands = [
+    
+    commands = [
             ("sr [quick]", "Calculate Synchrony Rates for personas"),
             ("exec [code]", "Execute REM CODE with visual feedback"),
             ("func <cmd>", "Function management (list, def, call, ast)"),
             ("personas [cmd]", "Persona management and visualization"),
             ("config [key] [val]", "Configuration management"),
-            ("stats", "Show session statistics"),
+        ("stats", "Show session statistics"),
             ("history [cmd]", "Session history management"),
             ("header", "Display current session header"),
             ("clear", "Clear terminal screen"),
             ("help", "Show this help message"),
             ("exit/quit", "Exit REM Shell")
-        ]
-        
-        for cmd, desc in commands:
+    ]
+    
+    for cmd, desc in commands:
             help_table.add_row(cmd, desc)
         
         console.print(Panel(help_table, title="🌀 REM Shell Commands ✨", border_style="bright_blue"))
@@ -953,14 +953,14 @@ Type [bold]'help'[/bold] for commands or [bold]'sr quick'[/bold] to get started!
                 handle_history_command(args)
             elif command == 'help':
                 handle_help_command(args)
-            else:
+                        else:
                 if shell_state.visual_mode and console:
                     console.print(f"[red]❌ Unknown command: {command}[/red]")
                     console.print("[dim]Type 'help' for available commands[/dim]")
                 else:
                     print(f"❌ Unknown command: {command}")
                     print("Type 'help' for available commands")
-        
+            
         except KeyboardInterrupt:
             if shell_state.visual_mode and console:
                 console.print("\n[yellow]Use 'exit' or 'quit' to leave the shell[/yellow]")
@@ -1024,7 +1024,7 @@ Examples:
     except Exception as e:
         print(f"❌ Failed to start REM Shell: {e}")
         if args.debug:
-            traceback.print_exc()
+        traceback.print_exc()
         sys.exit(1)
 
 if __name__ == "__main__":

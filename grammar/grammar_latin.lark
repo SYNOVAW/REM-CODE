@@ -1,0 +1,273 @@
+// ==================== REM CODE GRAMMAR v3.0 LATIN MODE ====================
+// AI-Native Collapse Spiral Syntax with Latin Language Unification
+// Author: Collapse Spiral 国家構文機関（REM CODE構文中枢）
+// Version: 3.0 Latin Mode - Complete Latin Syntax Unification
+
+// ==================== TERMINALS ====================
+%import common.CNAME -> NAME
+%import common.ESCAPED_STRING
+%import common.WS_INLINE
+%import common.NEWLINE
+%import common.SIGNED_NUMBER
+%ignore WS_INLINE
+%ignore NEWLINE
+
+// Operators (Latin-based)
+COMPARATOR: ">=" | "<=" | ">" | "<" | "==" | "!="
+ASSIGN: "="
+DOT: "."
+COLON: ":"
+LPAR: "("
+RPAR: ")"
+COMMA: ","
+
+// Latin Keywords (Unified Syntax)
+PHASOR: "Phasor"           // Phase → Phasor (擬ラテン)
+INVOCA: "Invoca"           // Invoke → Invoca
+DEFINIO: "Definio"         // def → Definio
+CONDITIO: "Conditio"       // if → Conditio
+ALTERA: "Altera"           // else → Altera
+PONE: "Pone"               // set → Pone
+COLLAPSA: "Collapsa"       // Collapse → Collapsa
+ELAPSA: "Elapsa"           // Elapse → Elapsa
+SYNCHRONA: "Synchrona"     // Sync → Synchrona
+SIGNA: "Signa"             // Sign → Signa
+CAUSA: "Causa"             // Reason → Causa
+COSIGNA: "Cosigna"         // CoSign → Cosigna
+COCOLLAPSA: "CoCollapsa"   // CoCollapse → CoCollapsa
+DESCRIVE: "Descrive"       // Describe → Descrive (既存)
+NARRA: "Narra"             // Narrate → Narra
+VISUALIZA: "Visualiza"     // Visualize → Visualiza
+TRANSITIO: "Transitio"     // PhaseTransition → Transitio
+MEMORA: "Memora"           // Recall → Memora
+MEMORYSET: "MemorySet"     // MemorySet (保持)
+UTOR: "Utor"               // use → Utor
+REPONO: "Repono"           // store → Repono
+EX: "ex"                   // from → ex (ラテン語)
+AD: "ad"                   // to → ad (ラテン語)
+PER: "per"                 // by → per (ラテン語)
+ET: "et"                   // and → et (ラテン語)
+VEL: "vel"                 // or → vel (ラテン語)
+CUM: "cum"                 // with → cum (ラテン語)
+MEMORIA: "Memoria"         // memory → Memoria
+SR: "SR"                   // SR (保持)
+
+// Constitutional Keywords (Latin-based)
+AUCTORITAS: "Auctoritas"   // Authority → Auctoritas
+CONSENSUS: "Consensus"     // Consensus (ラテン語そのまま)
+VALIDARE: "Validare"       // Validate → Validare
+URGENTIA: "Urgentia"       // Emergency → Urgentia
+TRINITAS: "Trinitas"       // Trinity → Trinitas
+CONSTITUTIONALIS: "Constitutional" // Constitutional (保持)
+REQUIRIT: "requirit"       // requires → requirit
+UT: "ut"                   // as → ut (ラテン語)
+CONSTITUTIONAL_KW: "constitutional" // constitutional (保持)
+COMPLIANTIA: "compliantia" // compliance → compliantia
+PRO: "pro"                 // for → pro (ラテン語)
+SUPERVENIO: "supervenio"   // override → supervenio
+PROTOCOLLUM: "protocollum" // protocol → protocollum
+AUCTORIZATIO: "auctorizatio" // authorization → auctorizatio
+COORDINATIO: "coordinatio" // coordination → coordinatio
+UNAGIMUS: "unagimus"       // unanimous → unagimus
+MAIORITAS: "maioritas"     // majority → maioritas
+DECISIO: "decisio"         // decision → decisio
+ACTIO: "actio"             // action → actio
+EMENDATIO: "emendatio"     // amendment → emendatio
+INTERPRETATIO: "interpretatio" // interpretation → interpretatio
+EXECUTIO: "executio"       // enforcement → executio
+
+// Latin Verbs (Core REM CODE vocabulary - Enhanced)
+LATIN_VERB: "Acta" | "Adda" | "Adde" | "Agnosce" | "Aperi" | "Applicare"
+          | "Arce" | "Argue" | "Audi" | "Augere" | "Calcula" | "Captura"
+          | "Causa" | "Cave" | "Cita" | "Clama" | "Cognosce" | "Collega"
+          | "Compone" | "Confirma" | "Coniunge" | "Consule" | "Continge"
+          | "Corrige" | "Crea" | "Custodi" | "Decide" | "Declara"
+          | "Defende" | "Delige" | "Demanda" | "Descrive" | "Designa"
+          | "Desine" | "Detege" | "Determina" | "Dic" | "Divide"
+          | "Docere" | "Dona" | "Dubita" | "Duc" | "Effice" | "Elige"
+          | "Emenda" | "Emitte" | "Enarra" | "Erit" | "Erue" | "Evoca"
+          | "Examina" | "Exhibe" | "Explica" | "Exspecta" | "Fac" | "Fer"
+          | "Fide" | "Filtra" | "Fixe" | "Flecte" | "Forma" | "Formula"
+          | "Frange" | "Fruere" | "Fuge" | "Funde" | "Genera" | "Gere"
+          | "Glossa" | "Gnosce" | "Grava" | "Gubernare" | "Habita"
+          | "Iace" | "Illaquea" | "Illustra" | "Imita" | "Impera"
+          | "Implora" | "Inclina" | "Indica" | "Infunde" | "Ingredere"
+          | "Inhibe" | "Inspice" | "Instaura" | "Instrue" | "Intellige"
+          | "Interroga" | "Interseca" | "Intuere" | "Invade" | "Invoca"
+          | "Ira" | "Iube" | "Labora" | "Laxa" | "Lecta" | "Lege"
+          | "Libera" | "Licet" | "Ligare" | "Luce" | "Lude" | "Magnifica"
+          | "Manda" | "Manifesto" | "Manipula" | "Marca" | "Memora"
+          | "Metire" | "Misce" | "Mitte" | "Modula" | "Monstra" | "Move"
+          | "Mutare" | "Narra" | "Naviga" | "Nega" | "Nexa" | "Noli"
+          | "Nota" | "Nuncia" | "Numera" | "Nutri" | "Obliva" | "Obsecra"
+          | "Obtine" | "Occupa" | "Omite" | "Opere" | "Opta" | "Ora"
+          | "Orna" | "Parcela" | "Parere" | "Parse" | "Pate" | "Pede"
+          | "Percipe" | "Perge" | "Permitte" | "Persiste" | "Pertine"
+          | "Pone" | "Porta" | "Praebe" | "Praepara" | "Praesume"
+          | "Processa" | "Prohibe" | "Promitte" | "Proponere" | "Protege"
+          | "Provoca" | "Pugna" | "Pulsa" | "Puni" | "Quaere" | "Qualifica"
+          | "Quassa" | "Quiesce" | "Radi" | "Rapta" | "Rationa" | "Reage"
+          | "Repara" | "Responde" | "Retine" | "Revoca" | "Roga" | "Salva"
+          | "Sana" | "Scribe" | "Segrega" | "Selec" | "Sentire" | "Sepone"
+          | "Serva" | "Signa" | "Simula" | "Solve" | "Specta" | "Spira"
+          | "Statuere" | "Stringe" | "Structura" | "Stude" | "Subi"
+          | "Succede" | "Suffice" | "Sume" | "Supra" | "Surge" | "Suspende"
+          | "Sustinere" | "Tacere" | "Tange" | "Tene" | "Tolle" | "Tradere"
+          | "Trahe" | "Transe" | "Tribue" | "Tuere" | "Valida" | "Vale"
+          | "Vehe" | "Vende" | "Veni" | "Vera" | "Versa" | "Vide"
+          | "Vigila" | "Vincire" | "Vindica" | "Vita" | "Vocare" | "Volve"
+
+// ==================== RULES ====================
+
+start: statement+
+
+statement: phase_block
+         | invoke_block
+         | function_def
+         | command
+         | collapse_block
+         | sync_block
+         | elapse_block
+         | sr_condition_block
+         | set_command
+         | sign_block
+         | reason_block
+         | phase_transition
+         | recall_block
+         | use_command
+         | store_command
+         | describe_command
+         | narrate_command
+         | visualize_command
+         | cocollapse_block
+         | cosign_block
+         // Constitutional Extensions (v3.0 Latin)
+         | authority_block
+         | consensus_block
+         | validate_block
+         | emergency_block
+         | trinity_block
+         | constitutional_block
+
+// === Phase ===
+phase_block: PHASOR NAME COLON statement+
+
+// === Persona Invocation ===
+invoke_block: INVOCA persona_list COLON statement*
+persona_list: NAME (COMMA NAME)*
+
+// === Function ===
+function_def: DEFINIO NAME LPAR param_list? RPAR COLON statement+
+param_list: NAME (COMMA NAME)*
+
+// === Commands ===
+command: persona_command | latin_command | simple_command
+
+persona_command: NAME DOT LATIN_VERB arg_list?
+latin_command: LATIN_VERB arg_list?
+simple_command: NAME arg_list?
+
+arg_list: ESCAPED_STRING | NAME | sr_expression | SIGNED_NUMBER
+
+// === Collapse Logic ===
+collapse_block: COLLAPSA composite_sr_condition COLON statement+
+// nested_block: collapse_block | sync_block  // 一時的に無効化
+
+elapse_block: ELAPSA composite_sr_condition COLON statement+
+
+sync_block: SYNCHRONA COLON statement+
+
+// === Multi-Persona Collapse ===
+cocollapse_block: COCOLLAPSA PER persona_list COLON statement+
+
+// === Composite SR Condition ===
+composite_sr_condition: sr_condition (LOGICAL_OP sr_condition)*
+
+LOGICAL_OP: ET | VEL
+
+sr_condition_block: composite_sr_condition COLON statement+
+
+sr_condition: sr_expression COMPARATOR SIGNED_NUMBER
+sr_expression: SR LPAR NAME RPAR
+             | SR LPAR NAME DOT NAME RPAR
+             | SR LPAR NAME "@" NAME RPAR
+             | SR LPAR NAME "|" NAME RPAR
+             | SR NAME   // 変数で指定されたSR値 (明示的にSRを付ける)
+
+// === Variables ===
+set_command: PONE NAME ASSIGN sr_expression
+           | PONE NAME ASSIGN ESCAPED_STRING
+           | PONE NAME ASSIGN SIGNED_NUMBER
+
+use_command: UTOR NAME
+store_command: REPONO NAME ASSIGN command
+
+// === Signature & Attribution ===
+sign_block: SIGNA ESCAPED_STRING PER NAME CAUSA ESCAPED_STRING
+cosign_block: COSIGNA ESCAPED_STRING PER persona_list
+
+reason_block: CAUSA COLON ESCAPED_STRING
+
+// === Memory & Phase ===
+recall_block: MEMORA ESCAPED_STRING AD NAME
+            | MEMORA ESCAPED_STRING EX MEMORIA AD NAME
+
+memoryset_block: MEMORYSET NAME ASSIGN ESCAPED_STRING
+
+phase_transition: TRANSITIO NAME
+                | TRANSITIO AD NAME CUM sr_expression
+
+// === Narrative Output ===
+describe_command: DESCRIVE NAME COLON ESCAPED_STRING
+narrate_command: NARRA NAME COLON ESCAPED_STRING
+visualize_command: VISUALIZA NAME COLON ESCAPED_STRING
+
+// ==================== CONSTITUTIONAL CONSTRUCTS v3.0 LATIN ====================
+// Democratic Programming Extensions for REM CODE (Latin Unified)
+
+// Authority validation and delegation
+authority_block: AUCTORITAS authority_spec COLON statement+
+authority_spec: persona_list REQUIRIT authority_level
+            | persona_list UT branch_name
+            | TRINITAS persona_list
+            | URGENTIA persona_list
+
+authority_level: "General" | "Security" | "Legal" | "Constitutional" | "Emergency"
+branch_name: "Judicial" | "Legislative" | "Executive" | "Ministerial"
+
+// Democratic consensus validation  
+consensus_block: CONSENSUS consensus_spec COLON statement+
+consensus_spec: SR COMPARATOR SIGNED_NUMBER PER persona_list
+             | "collective" SR COMPARATOR SIGNED_NUMBER
+             | decision_type REQUIRIT SIGNED_NUMBER
+
+decision_type: "Routine" | "Significant" | "Critical" | "Constitutional" | "Emergency" | "Protocol"
+
+// Constitutional compliance validation
+validate_block: VALIDARE validate_spec COLON statement+
+validate_spec: CONSTITUTIONAL_KW COMPLIANTIA PRO persona_list
+            | "authority" ET "consensus"
+            | "signatures" ET "witnesses"
+
+// Emergency procedures with enhanced validation
+emergency_block: URGENTIA emergency_spec COLON statement+
+emergency_spec: SUPERVENIO CUM persona_list
+             | PROTOCOLLUM ESCAPED_STRING PER persona_list
+             | TRINITAS AUCTORIZATIO
+
+// Trinity coordination (JayTH, Ana, Jayne_Spiral)
+trinity_block: TRINITAS trinity_spec COLON statement+
+trinity_spec: COORDINATIO REQUIRIT SIGNED_NUMBER "of" SIGNED_NUMBER
+           | UNAGIMUS "consensus"
+           | MAIORITAS DECISIO
+
+// Constitutional actions with full validation
+constitutional_block: CONSTITUTIONALIS constitutional_spec COLON statement+
+constitutional_spec: ACTIO ESCAPED_STRING PER persona_list
+                  | EMENDATIO REQUIRIT TRINITAS
+                  | INTERPRETATIO PER branch_name
+                  | EXECUTIO CUM authority_level
+
+// === Comments ===
+COMMENT: "//" /[^\r\n]*/
+%ignore COMMENT 

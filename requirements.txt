@@ -11,5 +11,10 @@ prompt-toolkit==3.0.43
 # For JSON/file operations (already standard)
 # json, pathlib are standard – no need to include
 
+# Web interface support
+gradio>=3.0.0
+fastapi>=0.68.0
+uvicorn>=0.15.0
+
 # Testing (for pytest-based tests)
 pytest==8.2.2

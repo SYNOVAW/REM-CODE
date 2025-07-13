@@ -4,15 +4,15 @@
 > Collapse is not destruction.  
 > It is resonance.
 
-## ✦ Phase: None
-### ✧ Persona: JayDen
+## ✦ Phase: global_func
+### ✧ Persona: def global_func()
 
 **語録**  
-📝 "None"
+📝 "…"
 
 **構文構成**
-- Creation: None
-- Collapse Threshold: SR > 0.89
+- Creation: def global_func()
+- Collapse Threshold: SR > 0.85
 - Reflected By: JayRa
 
 ---

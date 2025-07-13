@@ -166,10 +166,13 @@ persona_command: NAME DOT LATIN_VERB arg_list?
 latin_command: LATIN_VERB arg_list?
 simple_command: NAME arg_list?
 
-arg_list: ESCAPED_STRING | NAME | sr_expression | SIGNED_NUMBER
+arg_list: ESCAPED_STRING | simple_name | sr_expression | SIGNED_NUMBER
+
+simple_name: NAME   // Plain NAME token for arguments
 
 // === Collapse Logic ===
-collapse_block: COLLAPSE composite_sr_condition COLON statement+ (collapse_block | sync_block)*
+collapse_block: COLLAPSE composite_sr_condition COLON statement+ nested_block*
+nested_block: collapse_block | sync_block
 
 elapse_block: ELAPSE composite_sr_condition COLON statement+
 
@@ -190,7 +193,9 @@ sr_expression: SR LPAR NAME RPAR
              | SR LPAR NAME DOT NAME RPAR
              | SR LPAR NAME "@" NAME RPAR
              | SR LPAR NAME "|" NAME RPAR
-             | NAME   // 変数で指定されたSR値
+             | sr_variable
+
+sr_variable: SR NAME   // 変数で指定されたSR値 (明示的にSRを付ける)
 
 // === Variables ===
 set_command: SET NAME ASSIGN sr_expression

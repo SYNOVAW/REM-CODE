@@ -1,6 +1,12 @@
 from pathlib import Path
 from lark import Lark
-from engine.rem_transformer import REMTransformer
+import sys
+import os
+
+# Add the parent directory to the Python path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
+from parser.grammar_transformer import GrammarTransformer
 import json
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -8,11 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent
 
 def parse_remc(file_path: str):
     """Parse a REMC file using the bundled grammar."""
-    grammar_path = BASE_DIR / "grammar" / "grammar.lark"
+    grammar_path = BASE_DIR.parent / "grammar" / "grammar.lark"
     with open(grammar_path, "r", encoding="utf-8") as f:
         grammar = f.read()
 
-    parser = Lark(grammar, parser="lalr", transformer=REMTransformer())
+    parser = Lark(grammar, parser="lalr", transformer=GrammarTransformer())
     
     code_path = Path(file_path)
     if not code_path.is_absolute():

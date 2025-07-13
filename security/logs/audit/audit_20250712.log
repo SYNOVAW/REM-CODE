@@ -1,0 +1,15 @@
+2025-07-12 17:22:17,556 - authentication - INFO - 👤 Created user: admin
+2025-07-12 17:22:17,564 - authentication - INFO - 👤 Created user: developer
+2025-07-12 17:22:17,572 - authentication - INFO - 👤 Created user: analyst
+2025-07-12 17:22:44,103 - authentication - INFO - 👤 Created user: admin
+2025-07-12 17:22:44,111 - authentication - INFO - 👤 Created user: developer
+2025-07-12 17:22:44,119 - authentication - INFO - 👤 Created user: analyst
+2025-07-12 17:22:44,127 - authentication - WARNING - ❌ Failed login attempt: admin
+2025-07-12 17:22:44,136 - authentication - WARNING - ❌ Failed login attempt: admin
+2025-07-12 17:22:44,136 - authorization - WARNING - ❌ Permission denied: data:read for roles ['admin']
+2025-07-12 17:22:44,136 - authorization - INFO - ✅ Permission granted: system:admin via emergency_access
+2025-07-12 17:22:44,136 - authorization - WARNING - ❌ Permission denied: data:write for roles ['developer']
+2025-07-12 17:22:44,136 - authorization - WARNING - ❌ Permission denied: system:admin for roles ['developer']
+2025-07-12 17:22:44,139 - REM_AUDIT - INFO - Event[02a3e98efa1dd632] SUCCESS | User[admin] Session[session_123] | Action[LOGIN_SUCCESS] Resource[auth_system] | Category[authentication] Level[INFO] | IP[N/A] | Details: {"method": "password", "ip": "192.168.1.100"}
+2025-07-12 17:22:44,139 - REM_AUDIT - INFO - Event[53388c33000c3e8c] SUCCESS | User[developer] Session[session_456] | Action[DATA_ACCESS] Resource[user_database] | Category[authorization] Level[INFO] | IP[N/A] | Details: {"permission": "read", "records": 150}
+2025-07-12 17:22:44,139 - REM_AUDIT - WARNING - [SECURITY] Event[e4bf20294d0fc7b2] SUCCESS | User[unknown] Session[invalid_session] | Action[UNAUTHORIZED_ACCESS] Resource[admin_panel] | Category[security_event] Level[SECURITY] | IP[N/A] | Details: {"ip": "192.168.1.200", "threat_level": "MEDIUM"}

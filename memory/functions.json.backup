@@ -1,0 +1,121 @@
+{
+  "test_func": {
+    "name": "test_func",
+    "body": [
+      "def test_func():",
+      "    return 42"
+    ],
+    "created_at": 1752309429.240111,
+    "modified_at": 1752316496.639654,
+    "version": 10,
+    "call_count": 0,
+    "last_called": null,
+    "total_execution_time": 0.0,
+    "line_count": 2,
+    "tags": [],
+    "description": "",
+    "author": "Unknown"
+  },
+  "test_func2": {
+    "name": "test_func2",
+    "body": [
+      "def test_func2():",
+      "    return 99"
+    ],
+    "created_at": 1752309429.282429,
+    "modified_at": 1752316496.745135,
+    "version": 10,
+    "call_count": 10,
+    "last_called": 1752316496.749364,
+    "total_execution_time": 0.03134584426879883,
+    "line_count": 2,
+    "tags": [],
+    "description": "",
+    "author": "Unknown"
+  },
+  "test_func3": {
+    "name": "test_func3",
+    "body": [
+      "def test_func3():",
+      "    return 1"
+    ],
+    "created_at": 1752309429.325588,
+    "modified_at": 1752316496.856102,
+    "version": 10,
+    "call_count": 0,
+    "last_called": null,
+    "total_execution_time": 0.0,
+    "line_count": 2,
+    "tags": [],
+    "description": "",
+    "author": "Unknown"
+  },
+  "test_func4": {
+    "name": "test_func4",
+    "body": [
+      "def test_func4():",
+      "    return 2"
+    ],
+    "created_at": 1752309429.368466,
+    "modified_at": 1752316496.9788458,
+    "version": 10,
+    "call_count": 0,
+    "last_called": null,
+    "total_execution_time": 0.0,
+    "line_count": 2,
+    "tags": [],
+    "description": "",
+    "author": "Unknown"
+  },
+  "searchable_func": {
+    "name": "searchable_func",
+    "body": [
+      "def searchable_func():",
+      "    return 4"
+    ],
+    "created_at": 1752309429.468353,
+    "modified_at": 1752316497.193372,
+    "version": 10,
+    "call_count": 0,
+    "last_called": null,
+    "total_execution_time": 0.0,
+    "line_count": 2,
+    "tags": [],
+    "description": "",
+    "author": "Unknown"
+  },
+  "export_func": {
+    "name": "export_func",
+    "body": [
+      "def export_func():",
+      "    return 5"
+    ],
+    "created_at": 1752309429.555619,
+    "modified_at": 1752316497.4070668,
+    "version": 10,
+    "call_count": 0,
+    "last_called": null,
+    "total_execution_time": 0.0,
+    "line_count": 2,
+    "tags": [],
+    "description": "",
+    "author": "Unknown"
+  },
+  "global_func": {
+    "name": "global_func",
+    "body": [
+      "def global_func():",
+      "    return 6"
+    ],
+    "created_at": 1752309429.599099,
+    "modified_at": 1752316497.515002,
+    "version": 10,
+    "call_count": 9,
+    "last_called": 1752316497.522953,
+    "total_execution_time": 0.03164863586425781,
+    "line_count": 2,
+    "tags": [],
+    "description": "",
+    "author": "Unknown"
+  }
+}

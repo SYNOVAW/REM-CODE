@@ -1,26 +1,10 @@
 {
-  "functions": {
-    "test_basic": {
-      "body": [
-        "Phase Start:",
-        "Acta \"Hello\"",
-        "Causa \"This is a REM test\""
-      ]
-    },
-    "basic_test": {
-      "body": [
-        "Phase Start:",
-        "Acta \"Hello\"",
-        "Causa \"This is a REM test\""
-      ]
-    },
-    "test": {
-      "body": [
-        "def greet():",
-        "  Acta \"Salve Mundi\"",
-        "",
-        "Invoke greet:"
+  "functions": [
+    {
+      "name": "test",
+      "code": [
+        "def test(): pass"
       ]
     }
-  }
+  ]
 }
